@@ -261,7 +261,10 @@ export default function GallerySlider({
             </button>
 
             {/* Dots Navigation */}
-            <div className="gallery-navigation absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2 z-10">
+            <div
+              className="gallery-navigation !hidden sm:!hidden md:!flex absolute bottom-2 left-1/2 -translate-x-1/2 gap-1.5 md:gap-2 z-10"
+              style={{ display: "none" }}
+            >
               {filteredImages.map((_, index) => (
                 <button
                   key={index}

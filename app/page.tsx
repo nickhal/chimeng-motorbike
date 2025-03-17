@@ -99,27 +99,27 @@ export default function Home() {
     const galleryImages = [
       {
         src: "/images/bali-demon-calf.jpg",
-        alt: "Balinese Demon Calf Tattoo",
+        alt: "Bali Demon Calf Tattoo",
         category: "balinese",
       },
       {
         src: "/images/bali-demon-forearm.jpg",
-        alt: "Balinese Demon Forearm Tattoo",
+        alt: "Bali Demon Forearm Tattoo",
         category: "balinese",
       },
       {
         src: "/images/bali-demon-shoulder.jpg",
-        alt: "Balinese Demon Shoulder Tattoo",
+        alt: "Bali Demon Shoulder Tattoo",
         category: "balinese",
       },
       {
         src: "/images/bali-pattern-forearm.jpg",
-        alt: "Balinese Pattern Forearm Tattoo",
+        alt: "Bali Pattern Forearm Tattoo",
         category: "balinese",
       },
       {
         src: "/images/bali-shoulder.jpg",
-        alt: "Balinese Shoulder Design",
+        alt: "Bali Shoulder Design",
         category: "balinese",
       },
       {
