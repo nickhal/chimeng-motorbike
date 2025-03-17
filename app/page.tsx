@@ -33,9 +33,27 @@ import BookingForm from "@/components/booking-form";
 import GallerySlider from "@/components/gallery-slider";
 import LocationCard from "@/components/location-card";
 
+// Define interface for gallery images
+interface GalleryImage {
+  src: string;
+  alt: string;
+  category: string;
+}
+
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
+  const [shuffledImages, setShuffledImages] = useState<GalleryImage[]>([]);
+
+  // Fisher-Yates shuffle algorithm
+  const shuffleArray = (array: GalleryImage[]) => {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  };
 
   // Parallax effect for hero section
   useEffect(() => {
@@ -54,6 +72,149 @@ export default function Home() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Initialize shuffled images on client side
+  useEffect(() => {
+    const galleryImages = [
+      {
+        src: "/images/bali-demon-calf.jpg",
+        alt: "Balinese Demon Calf Tattoo",
+        category: "balinese",
+      },
+      {
+        src: "/images/bali-demon-forearm.jpg",
+        alt: "Balinese Demon Forearm Tattoo",
+        category: "balinese",
+      },
+      {
+        src: "/images/bali-demon-shoulder.jpg",
+        alt: "Balinese Demon Shoulder Tattoo",
+        category: "balinese",
+      },
+      {
+        src: "/images/bali-pattern-forearm.jpg",
+        alt: "Balinese Pattern Forearm Tattoo",
+        category: "balinese",
+      },
+      {
+        src: "/images/bali-shoulder.jpg",
+        alt: "Balinese Shoulder Design",
+        category: "balinese",
+      },
+      {
+        src: "/images/ganesha-arm.jpg",
+        alt: "Ganesha Arm Tattoo",
+        category: "balinese",
+      },
+      {
+        src: "/images/back-fineline.jpg",
+        alt: "Back Fineline Tattoo",
+        category: "fineline",
+      },
+      {
+        src: "/images/butterfly-hand.jpg",
+        alt: "Butterfly Hand Tattoo",
+        category: "fineline",
+      },
+      {
+        src: "/images/butterfly-stomach.jpg",
+        alt: "Butterfly Stomach Tattoo",
+        category: "fineline",
+      },
+      {
+        src: "/images/fineline-arm.jpg",
+        alt: "Fineline Arm Design",
+        category: "fineline",
+      },
+      {
+        src: "/images/fineline-chest.jpg",
+        alt: "Fineline Chest Tattoo",
+        category: "fineline",
+      },
+      {
+        src: "/images/heart-fineline.jpg",
+        alt: "Heart Fineline Tattoo",
+        category: "fineline",
+      },
+      {
+        src: "/images/rose-fineline.jpg",
+        alt: "Rose Fineline Tattoo",
+        category: "fineline",
+      },
+      {
+        src: "/images/buddha-calf.jpg",
+        alt: "Buddha Calf Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/demon-forearm.jpg",
+        alt: "Demon Forearm Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/egyptian-calf.jpg",
+        alt: "Egyptian Calf Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/eskimo-leg.jpg",
+        alt: "Eskimo Leg Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/face-calf.jpg",
+        alt: "Face Calf Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/flower-chest.jpg",
+        alt: "Flower Chest Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/flower-design-quad.jpg",
+        alt: "Flower Design Quadrant",
+        category: "modern",
+      },
+      {
+        src: "/images/flower-sleeve.jpg",
+        alt: "Flower Sleeve Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/full-sleeve.jpg",
+        alt: "Full Sleeve Tattoo Design",
+        category: "modern",
+      },
+      {
+        src: "/images/indian-calf.jpg",
+        alt: "Indian Calf Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/japanese-woman.jpg",
+        alt: "Japanese Woman Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/lion-leg.jpg",
+        alt: "Lion Leg Tattoo",
+        category: "modern",
+      },
+      {
+        src: "/images/medusa.jpg",
+        alt: "Medusa Tattoo Design",
+        category: "modern",
+      },
+      {
+        src: "/images/wolf-shoulder.jpg",
+        alt: "Wolf Shoulder Tattoo",
+        category: "modern",
+      },
+    ];
+
+    setShuffledImages(shuffleArray(galleryImages));
   }, []);
 
   // Calculate parallax transform values
@@ -91,7 +252,7 @@ export default function Home() {
         >
           <div className="mb-8 w-48 md:w-64 animate-float">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LOGO%20TATO%20NEW%20BLANK-WbMeQlhj3bwu1bFLoTX6Yuk1doGjT7.png"
+              src="/images/LOGO TATO NEW BLANK NO TEXT.png"
               alt="Uluwatu Tattoos Logo"
               width={300}
               height={300}
@@ -162,7 +323,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Locations Section (Replacing Artists Section) */}
+      {/* Locations Section */}
       <section
         id="locations"
         className="py-20 relative overflow-hidden ink-splatter"
@@ -185,7 +346,7 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-2">
             <LocationCard
               name="Padang Padang"
-              image="/placeholder.svg?height=500&width=800"
+              image="/images/padang-padang-location-1.jpg"
               address="Jl. Labuansait No.81, Pecatu, Uluwatu, Kabupaten Badung, Bali 80361"
               hours="9am - 8pm everyday"
               phone="+62 812-3456-7890"
@@ -196,7 +357,7 @@ export default function Home() {
 
             <LocationCard
               name="Ungasan"
-              image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-32E15dATSwy8uev3vbkMCRAdfmt4PY.png"
+              image="/images/ungasan-location.jpg"
               address="Jl. Pura Masuka No.41, Ungasan, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
               hours="9am - 8pm everyday"
               phone="+62 812-3456-7890"
@@ -215,7 +376,7 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid gap-12 md:grid-cols-2">
             <div className="flex flex-col justify-center">
-              <Badge className="mb-4 w-fit bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
+              <Badge className="mb-6 w-fit bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
                 AUTHENTIC ARTISTRY
               </Badge>
               <h2 className="mb-6 font-sans text-3xl font-bold uppercase tracking-tight md:text-4xl lg:text-5xl">
@@ -233,17 +394,17 @@ export default function Home() {
                 life, whether you&apos;re looking for a small memento of your
                 travels or an elaborate full-body piece.
               </p>
-              <Button
+              {/* <Button
                 variant="outline"
                 className="w-fit border-brand-red text-brand-red hover:bg-brand-red hover:text-white uppercase tracking-wider font-medium group transition-all"
               >
                 Learn More About Our Studio
                 <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
+              </Button> */}
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-xl md:h-[500px] group">
               <Image
-                src="/placeholder.svg?height=500&width=500"
+                src="/images/outside-studio.jpg"
                 alt="Tattoo Studio Interior"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -326,14 +487,13 @@ export default function Home() {
         id="gallery"
         className="bg-brand-black py-20 relative overflow-hidden"
       >
-        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-brand-lightgray to-transparent"></div>
         <div className="container mx-auto">
           <div className="mb-12 text-center">
             <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
               OUR WORK
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-white uppercase tracking-tight md:text-4xl lg:text-5xl">
-              Gallery of Our Finest Work
+              Studio Gallery
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-300">
               Browse through our portfolio of tattoos to find inspiration for
@@ -342,62 +502,10 @@ export default function Home() {
           </div>
 
           <GallerySlider
-            images={[
-              {
-                src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hyBKiBUO6NA835sBxGswHfEzwjgK5b.png",
-                alt: "Traditional Balinese Tattoo",
-                category: "balinese",
-              },
-              {
-                src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SlBg8uK0cj0d7FIKi3cFbRskDLkvsj.png",
-                alt: "Modern Geometric Design",
-                category: "modern",
-              },
-              {
-                src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-32E15dATSwy8uev3vbkMCRAdfmt4PY.png",
-                alt: "Custom Sleeve Artwork",
-                category: "custom",
-              },
-              {
-                src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-8VhTXnaLcGM4Ol6DNxcxQ4x4aVPPU4.png",
-                alt: "Fine Line Portrait",
-                category: "modern",
-              },
-              {
-                src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-hyBKiBUO6NA835sBxGswHfEzwjgK5b.png",
-                alt: "Traditional Mask Design",
-                category: "balinese",
-              },
-              {
-                src: "/placeholder.svg?height=600&width=800",
-                alt: "Blackwork Pattern",
-                category: "modern",
-              },
-              {
-                src: "/placeholder.svg?height=600&width=800",
-                alt: "Custom Back Piece",
-                category: "custom",
-              },
-              {
-                src: "/placeholder.svg?height=600&width=800",
-                alt: "Balinese Script",
-                category: "balinese",
-              },
-              {
-                src: "/placeholder.svg?height=600&width=800",
-                alt: "Minimalist Design",
-                category: "modern",
-              },
-              {
-                src: "/placeholder.svg?height=600&width=800",
-                alt: "Custom Spiritual Symbol",
-                category: "custom",
-              },
-            ]}
-            categories={["balinese", "modern", "custom"]}
+            images={shuffledImages}
+            categories={["balinese", "modern", "fineline"]}
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-brand-lightgray to-transparent"></div>
       </section>
 
       {/* FAQ Section */}
