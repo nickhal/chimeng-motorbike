@@ -217,12 +217,12 @@ export default function Home() {
     setShuffledImages(shuffleArray(galleryImages));
   }, []);
 
-  // Calculate parallax transform values
-  const calculateTransform = (depth = 30) => {
+  // Calculate parallax transform values with scale
+  const calculateTransform = (depth = 30, scale = 1) => {
     const { x, y } = mousePosition;
     const moveX = (x - 0.5) * depth;
     const moveY = (y - 0.5) * depth;
-    return `translate3d(${moveX}px, ${moveY}px, 0)`;
+    return `translate3d(${moveX}px, ${moveY}px, 0) scale(${scale})`;
   };
 
   return (
@@ -236,23 +236,23 @@ export default function Home() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-32E15dATSwy8uev3vbkMCRAdfmt4PY.png"
+            src="/images/ungasan-location.jpg"
             alt="Uluwatu Tattoos Bali Shop"
             fill
-            className="object-cover brightness-[0.3]"
+            className="object-cover brightness-[0.2] origin-center"
             priority
-            style={{ transform: calculateTransform(20) }}
+            style={{ transform: calculateTransform(20, 1.1) }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-brand-black/60 to-brand-black/90"></div>
         </div>
 
         <div
           className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white"
-          style={{ transform: calculateTransform(10) }}
+          style={{ transform: calculateTransform(10, 1.05) }}
         >
           <div className="mb-8 w-48 md:w-64 animate-float">
             <Image
-              src="/images/LOGO TATO NEW BLANK NO TEXT.png"
+              src="/images/logo.png"
               alt="Uluwatu Tattoos Logo"
               width={300}
               height={300}
@@ -286,7 +286,7 @@ export default function Home() {
 
         <div
           className="absolute bottom-8 left-0 right-0 z-10 flex justify-center"
-          style={{ transform: calculateTransform(5) }}
+          style={{ transform: calculateTransform(5, 1.02) }}
         >
           <div className="flex space-x-4">
             <Link

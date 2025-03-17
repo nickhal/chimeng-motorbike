@@ -11,7 +11,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <div className="relative h-12 w-12 overflow-hidden">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LOGO%20TATO%20NEW%20BLANK-WbMeQlhj3bwu1bFLoTX6Yuk1doGjT7.png"
+                  src="/images/logo.png"
                   alt="Uluwatu Tattoos Logo"
                   width={48}
                   height={48}
