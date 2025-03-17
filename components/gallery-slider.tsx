@@ -259,23 +259,6 @@ export default function GallerySlider({
             >
               <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-white" />
             </button>
-
-            {/* Dots Navigation */}
-            <div
-              className="gallery-navigation !hidden sm:!hidden md:!flex absolute bottom-2 left-1/2 -translate-x-1/2 gap-1.5 md:gap-2 z-10"
-              style={{ display: "none" }}
-            >
-              {filteredImages.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full bg-white/50 transition-all ${
-                    index === activeIndex ? "bg-white scale-110" : ""
-                  }`}
-                  onClick={() => setActiveIndex(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
           </>
         ) : (
           <div className="flex h-full items-center justify-center bg-brand-gray">
