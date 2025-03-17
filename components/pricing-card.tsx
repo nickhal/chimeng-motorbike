@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 // import { Button } from "@/components/ui/button";
 
@@ -17,14 +16,8 @@ export default function PricingCard({
   image,
   description,
 }: PricingCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <div
-      className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
       <div className="relative h-[200px] overflow-hidden">
         <Image
           src={image || "/placeholder.svg"}

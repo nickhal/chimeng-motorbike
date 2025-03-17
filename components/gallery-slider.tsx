@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, TouchEvent } from "react";
+import { useState, useEffect, useRef, TouchEvent, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,17 +40,17 @@ export default function GallerySlider({
       ? images
       : images.filter((img) => img.category === activeCategory);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setActiveIndex((prev) =>
       prev === 0 ? filteredImages.length - 1 : prev - 1
     );
-  };
+  }, [filteredImages.length]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActiveIndex((prev) =>
       prev === filteredImages.length - 1 ? 0 : prev + 1
     );
-  };
+  }, [filteredImages.length]);
 
   const openModal = (image: GalleryImage, e: React.MouseEvent) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ export default function GallerySlider({
     }
   };
 
-  const closeModal = (e?: React.MouseEvent | KeyboardEvent) => {
+  const closeModal = useCallback((e?: React.MouseEvent | KeyboardEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -86,7 +86,7 @@ export default function GallerySlider({
       setModalOpen(false);
       setModalImage(null);
     }
-  };
+  }, []);
 
   // Touch event handlers
   const onTouchStart = (e: TouchEvent) => {
@@ -146,7 +146,7 @@ export default function GallerySlider({
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalOpen]);
+  }, [modalOpen, handleNext, handlePrev, closeModal]);
 
   // Auto-advance the slider
   useEffect(() => {
@@ -155,7 +155,7 @@ export default function GallerySlider({
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [activeIndex, modalOpen, filteredImages.length]);
+  }, [activeIndex, modalOpen, filteredImages.length, handleNext]);
 
   // Clean up on unmount
   useEffect(() => {
