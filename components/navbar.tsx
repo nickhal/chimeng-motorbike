@@ -97,7 +97,7 @@ export default function Navbar() {
             FAQ
           </Link>
           <Button className="bg-brand-red text-white hover:bg-brand-red/90 transition-transform hover:scale-105 uppercase tracking-wider font-medium">
-            Book Now
+            <Link href="https://wa.me/6281338702013">Book Now</Link>
           </Button>
         </nav>
 
@@ -173,7 +173,7 @@ export default function Navbar() {
                   FAQ
                 </Link>
                 <Button className="mt-4 w-full bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider font-medium">
-                  Book Now
+                  <Link href="https://wa.me/6281338702013">Book Now</Link>
                 </Button>
               </nav>
 

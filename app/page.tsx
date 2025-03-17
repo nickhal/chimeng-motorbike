@@ -3,16 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Instagram,
-  Facebook,
-  Mail,
-  MapPin,
-  Clock,
-  Phone,
-  ChevronDown,
-  ChevronRight,
-} from "lucide-react";
+import { Phone, ChevronDown, Users, Paintbrush } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,15 +12,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import TestimonialCard from "@/components/testimonial-card";
 import PricingCard from "@/components/pricing-card";
-import BookingForm from "@/components/booking-form";
 import GallerySlider from "@/components/gallery-slider";
 import LocationCard from "@/components/location-card";
 
@@ -43,6 +31,7 @@ interface GalleryImage {
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
+  const mousePositionRef = useRef({ x: 0.5, y: 0.5 }); // Add ref to track current position
   const [shuffledImages, setShuffledImages] = useState<GalleryImage[]>([]);
 
   // Fisher-Yates shuffle algorithm
@@ -67,11 +56,42 @@ export default function Home() {
       const x = (clientX - left) / width;
       const y = (clientY - top) / height;
 
+      mousePositionRef.current = { x, y }; // Update ref
       setMousePosition({ x, y });
     };
 
+    const handleScroll = () => {
+      if (!heroRef.current) return;
+
+      // Check if hero section is in viewport
+      const rect = heroRef.current.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+      if (!isInViewport) return;
+
+      // When scrolling without mouse movement, ensure we still have a good parallax position
+      // Use the ref for current position or default to center position
+      const { x } = mousePositionRef.current;
+
+      // Force re-render with slightly adjusted values to create subtle movement during scroll
+      const scrollY = window.scrollY;
+      // Slightly adjust y position based on scroll to create a subtle movement effect
+      const adjustedY = 0.5 + (scrollY % 100) / 1000;
+
+      setMousePosition({ x, y: adjustedY });
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("scroll", handleScroll);
+
+    // Initialize position to center for better default appearance
+    mousePositionRef.current = { x: 0.5, y: 0.5 };
+    setMousePosition({ x: 0.5, y: 0.5 });
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // Initialize shuffled images on client side
@@ -232,7 +252,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative h-screen overflow-hidden"
+        className="relative h-screen overflow-hidden bg-[#1A1A1A]"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -264,53 +284,26 @@ export default function Home() {
             <span className="block mt-2 text-brand-red">TATTOOS BALI</span>
           </h1>
           <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-300">
-            Experience authentic Balinese tattoo artistry in a modern studio
-            setting
+            Experience authentic Balinese tattoo artistry with a modern touch
           </p>
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
             <Button
               size="lg"
               className="bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
             >
-              Book Appointment
+              <Link href="https://wa.me/6281338702013">Book Appointment</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="border-white text-brand-black hover:bg-white/10 hover:text-white uppercase tracking-wider font-medium"
             >
-              View Gallery
+              <Link href="#gallery">View Gallery</Link>
             </Button>
           </div>
         </div>
 
-        <div
-          className="absolute bottom-8 left-0 right-0 z-10 flex justify-center"
-          style={{ transform: calculateTransform(5, 1.02) }}
-        >
-          <div className="flex space-x-4">
-            <Link
-              href="#"
-              className="rounded-full bg-white/10 p-3 backdrop-blur-sm transition-all hover:bg-brand-red hover:scale-110"
-            >
-              <Instagram className="h-6 w-6 text-white" />
-            </Link>
-            <Link
-              href="#"
-              className="rounded-full bg-white/10 p-3 backdrop-blur-sm transition-all hover:bg-brand-red hover:scale-110"
-            >
-              <Facebook className="h-6 w-6 text-white" />
-            </Link>
-            <Link
-              href="#"
-              className="rounded-full bg-white/10 p-3 backdrop-blur-sm transition-all hover:bg-brand-red hover:scale-110"
-            >
-              <Mail className="h-6 w-6 text-white" />
-            </Link>
-          </div>
-        </div>
-
-        <div className="absolute bottom-12 left-0 right-0 z-10 flex justify-center">
+        <div className="absolute bottom-12 left-0 right-0 z-10 hidden sm:flex justify-center">
           <Link
             href="#about"
             className="flex flex-col items-center text-white animate-pulse"
@@ -448,35 +441,35 @@ export default function Home() {
             <PricingCard
               title="Fineline Tattoos"
               price="500k IDR+"
-              image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SlBg8uK0cj0d7FIKi3cFbRskDLkvsj.png"
+              image="/images/fineline-arm.jpg"
               description="A design style that uses fine lines to create small, delicate, and detailed tattoos"
             />
 
             <PricingCard
               title="Single Piece"
               price="4,000k IDR+"
-              image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SlBg8uK0cj0d7FIKi3cFbRskDLkvsj.png"
+              image="/images/bali-demon-shoulder.jpg"
               description="This piece is a beautiful and intricate design on any place of your choosing"
             />
 
             <PricingCard
               title="Sleeve Piece"
               price="9,000k IDR+"
-              image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SlBg8uK0cj0d7FIKi3cFbRskDLkvsj.png"
+              image="/images/full-sleeve.jpg"
               description="Available in a quarter, half, or full sleeve, this type of tattoo may require some consulting and multiple session to complete"
             />
 
             <PricingCard
               title="Full Back"
               price="18,000k IDR+"
-              image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-SlBg8uK0cj0d7FIKi3cFbRskDLkvsj.png"
+              image="/images/full-back.webp"
               description="This will require multiple session and some collaborative work with Andre to help bring your visions to live"
             />
           </div>
 
           <div className="mt-12 text-center">
             <Button className="bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
-              Book Consultation
+              <Link href="https://wa.me/6281338702013">Book Consultation</Link>
             </Button>
           </div>
         </div>
@@ -661,43 +654,39 @@ export default function Home() {
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <TestimonialCard
-              name="Sarah J."
+              name="Heather R."
               rating={5}
-              review="Absolutely amazing experience! Andre is not only incredibly talented but also made me feel comfortable throughout the entire process. My tattoo is beautiful and exactly what I wanted."
-              image="/placeholder.svg?height=100&width=100"
+              review="I walked in right when the shop opened and got two beautiful fine-line tattoos by Zey. An amazing experience and recommend if you're looking for a last-minute fine-lined tattoo!"
+              reviewLink="https://g.co/kgs/jF7r3BH"
             />
 
             <TestimonialCard
-              name="Michael T."
+              name="Syndee S."
               rating={5}
-              review="The level of detail in my Balinese-inspired sleeve is incredible. Worth every penny and the multiple sessions. The studio is clean, professional, and everyone is so friendly."
-              image="/placeholder.svg?height=100&width=100"
+              review="Went for a walk in and they were able to take me right away. Very clean and professional establishment with great pricing. Would've gotten more if I had the time. Thank you!!"
+              reviewLink="https://g.co/kgs/o5JRr2d"
             />
 
             <TestimonialCard
-              name="Anugrah Diatmika"
+              name="Aga S."
               rating={5}
-              review="Good service and high quality tattoos. The artists really take the time to understand what you want and make helpful suggestions to improve the design."
-              image="/placeholder.svg?height=100&width=100"
+              review="The whole process was so smooth, and I couldn't be happier with how it turned out. Truly exceeded my expectations! Highly recommend to anyone looking for a great tattoo studio 🫶🏻"
+              reviewLink="https://g.co/kgs/qwZK7UL"
             />
           </div>
 
           <div className="mt-12 text-center">
-            <Button
-              variant="outline"
-              className="border-brand-red text-brand-red hover:bg-brand-red hover:text-white uppercase tracking-wider font-medium group transition-all"
-            >
-              Read More Reviews
-              <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <Button className="bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
+              <Link href="https://g.co/kgs/1KZWoAN">Read Reviews</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Booking Section with Both Locations */}
+      {/* Booking Section with Both Locations Side by Side */}
       <section
         id="booking"
-        className="py-20 relative overflow-hidden"
+        className="py-20 relative overflow-hidden bg-gradient-to-b from-brand-lightgray to-white"
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
@@ -708,203 +697,203 @@ export default function Home() {
               Ready for Your Next Tattoo?
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Book your consultation or appointment today at either of our
-              locations. Our team is ready to help bring your tattoo vision to
-              life.
+              Your tattoo journey begins with a simple booking. Our artists are
+              ready to bring your vision to life with skill and dedication.
             </p>
           </div>
 
-          <Tabs
-            defaultValue="padang-padang"
-            className="w-full"
-          >
-            <TabsList className="mx-auto mb-8 grid w-fit grid-cols-2 bg-brand-gray">
-              <TabsTrigger
-                value="padang-padang"
-                className="uppercase tracking-wider data-[state=active]:bg-brand-red px-8"
-              >
-                Padang Padang
-                <Badge className="ml-2 bg-brand-red/30 text-white text-xs">
-                  NEW
-                </Badge>
-              </TabsTrigger>
-              <TabsTrigger
-                value="ungasan"
-                className="uppercase tracking-wider data-[state=active]:bg-brand-red px-8"
-              >
-                Ungasan
-              </TabsTrigger>
-            </TabsList>
+          {/* Booking Process */}
+          <div className="mb-16">
+            <h3 className="text-center mb-10 font-sans text-2xl font-bold text-brand-black">
+              Our Simple Booking Process
+            </h3>
 
-            <TabsContent
-              value="padang-padang"
-              className="mt-0"
-            >
-              <div className="grid gap-12 md:grid-cols-2">
-                <div className="flex flex-col justify-center">
-                  <h3 className="mb-4 font-sans text-2xl font-bold text-brand-black uppercase">
-                    Padang Padang Location
-                  </h3>
-                  <p className="mb-8 text-lg leading-relaxed text-gray-600">
-                    Our newest studio located near the famous Padang Padang
-                    Beach. Featuring ocean views, expanded facilities, and the
-                    same exceptional artistry in a breathtaking setting.
-                  </p>
-
-                  <div className="mb-6 grid gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
-                        <MapPin className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-brand-black">
-                          Address
-                        </h3>
-                        <p className="text-gray-600">
-                          Jl. Labuansait No.81, Pecatu, Uluwatu, Kabupaten
-                          Badung, Bali 80361
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
-                        <Clock className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-brand-black">Hours</h3>
-                        <p className="text-gray-600">9am - 8pm everyday</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
-                        <Phone className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-brand-black">
-                          Contact
-                        </h3>
-                        <p className="text-gray-600">
-                          +62 812-3456-7890 | padang@uluwatutattoos.com
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="h-[300px] overflow-hidden rounded-xl shadow-lg">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.9651666308813!2d115.10999!3d-8.81667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd25b9f8a7de937%3A0x8f5e6d2c2b9bbd4d!2sPadang%20Padang%20Beach!5e0!3m2!1sen!2sid!4v1616000000000!5m2!1sen!2sid"
-                      width="100%"
-                      height="300"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Uluwatu Tattoos Padang Padang Location"
-                    ></iframe>
-                  </div>
+            <div className="grid gap-8 md:grid-cols-3">
+              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xl">
+                  1
                 </div>
+                <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
+                  <Link href="https://wa.me/6281338702013">
+                    <Phone className="h-12 w-12 text-brand-red hover:text-brand-red/80 transition-colors" />
+                  </Link>
+                </div>
+                <h4 className="font-bold text-lg mb-2">Contact Us</h4>
+                <p className="text-gray-600">
+                  Reach out via WhatsApp or call us to discuss your tattoo idea
+                  and schedule a consultation.
+                </p>
+              </div>
 
+              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xl">
+                  2
+                </div>
+                <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
+                  <Users className="h-12 w-12 text-brand-red" />
+                </div>
+                <h4 className="font-bold text-lg mb-2">Free Consultation</h4>
+                <p className="text-gray-600">
+                  Meet with our artists to refine your design, discuss
+                  placement, and prepare for your session.
+                </p>
+              </div>
+
+              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xl">
+                  3
+                </div>
+                <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
+                  <Paintbrush className="h-12 w-12 text-brand-red" />
+                </div>
+                <h4 className="font-bold text-lg mb-2">Tattoo Session</h4>
+                <p className="text-gray-600">
+                  Sit back and relax as our skilled artists create your custom
+                  tattoo in a clean, professional environment.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-12 md:grid-cols-2">
+            {/* What to Bring */}
+            <div className="bg-white p-8 rounded-xl shadow-md">
+              <h3 className="mb-6 font-sans text-2xl font-bold text-brand-black uppercase">
+                What to Bring to Your Session
+              </h3>
+
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                    ✓
+                  </div>
+                  <span className="text-gray-700">
+                    Valid ID (passport or driver&apos;s license)
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                    ✓
+                  </div>
+                  <span className="text-gray-700">
+                    Reference images or inspiration for your design
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                    ✓
+                  </div>
+                  <span className="text-gray-700">
+                    Comfortable clothes that allow access to the tattoo area
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                    ✓
+                  </div>
+                  <span className="text-gray-700">
+                    Water and snacks for longer sessions
+                  </span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                    ✓
+                  </div>
+                  <span className="text-gray-700">
+                    Payment method (cash, card, or digital payment)
+                  </span>
+                </li>
+              </ul>
+
+              <div className="mt-8 p-4 bg-brand-red/10 rounded-lg">
+                <p className="text-gray-700 italic">
+                  &ldquo;Our artists can help adapt any reference material to
+                  create a unique design that&apos;s perfect for you. Don&apos;t
+                  worry if you&apos;re not 100% sure about your design -
+                  that&apos;s what consultations are for!&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Book Now */}
+            <div className="bg-white p-8 rounded-xl shadow-md flex flex-col">
+              <h3 className="mb-6 font-sans text-2xl font-bold text-brand-black uppercase">
+                Book Your Session Today
+              </h3>
+
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
+                  <Phone className="h-5 w-5 text-white" />
+                </div>
                 <div>
-                  <Card className="border-none shadow-xl overflow-hidden">
-                    <div className="bg-brand-black text-white p-6 uppercase tracking-wider font-bold text-center text-xl">
-                      Book at Padang Padang
-                      <Badge className="ml-2 bg-brand-red text-white">
-                        NEW
-                      </Badge>
-                    </div>
-                    <CardContent className="p-6 pt-8">
-                      <BookingForm />
-                    </CardContent>
-                  </Card>
+                  <h3 className="font-medium text-brand-black">
+                    WhatsApp or Call
+                  </h3>
+                  <p className="text-gray-600">+62 813-3870-2013</p>
                 </div>
               </div>
-            </TabsContent>
 
-            <TabsContent
-              value="ungasan"
-              className="mt-0"
-            >
-              <div className="grid gap-12 md:grid-cols-2">
-                <div className="flex flex-col justify-center">
-                  <h3 className="mb-4 font-sans text-2xl font-bold text-brand-black uppercase">
-                    Ungasan Location
-                  </h3>
-                  <p className="mb-8 text-lg leading-relaxed text-gray-600">
-                    Our original studio in Ungasan offers a relaxed atmosphere
-                    with traditional Balinese elements. A peaceful setting for
-                    your tattoo experience with our skilled artists.
-                  </p>
-
-                  <div className="mb-6 grid gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
-                        <MapPin className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-brand-black">
-                          Address
-                        </h3>
-                        <p className="text-gray-600">
-                          Jl. Pura Masuka No.41, Ungasan, Kec. Kuta Sel.,
-                          Kabupaten Badung, Bali 80361
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
-                        <Clock className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-brand-black">Hours</h3>
-                        <p className="text-gray-600">9am - 8pm everyday</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
-                        <Phone className="h-5 w-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-medium text-brand-black">
-                          Contact
-                        </h3>
-                        <p className="text-gray-600">
-                          +62 812-3456-7890 | info@uluwatutattoos.com
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="h-[300px] overflow-hidden rounded-xl shadow-lg">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.5698153225774!2d115.16699999999999!3d-8.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwNDgnMDAuMCJTIDExNcKwMTAnMDEuMiJF!5e0!3m2!1sen!2sid!4v1616000000000!5m2!1sen!2sid"
-                      width="100%"
-                      height="300"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title="Uluwatu Tattoos Ungasan Location"
-                    ></iframe>
-                  </div>
+              <div className="grid gap-4 grid-cols-2 mb-8">
+                <div className="text-center p-3 border border-gray-200 rounded-lg">
+                  <p className="text-3xl font-bold text-brand-red">2000+</p>
+                  <p className="text-sm text-gray-600">Happy Clients</p>
                 </div>
-
-                <div>
-                  <Card className="border-none shadow-xl overflow-hidden">
-                    <div className="bg-brand-black text-white p-6 uppercase tracking-wider font-bold text-center text-xl">
-                      Book at Ungasan
-                    </div>
-                    <CardContent className="p-6 pt-8">
-                      <BookingForm />
-                    </CardContent>
-                  </Card>
+                <div className="text-center p-3 border border-gray-200 rounded-lg">
+                  <p className="text-3xl font-bold text-brand-red">5.0</p>
+                  <p className="text-sm text-gray-600">Google Rating</p>
                 </div>
               </div>
-            </TabsContent>
-          </Tabs>
+
+              <div className="flex-1 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <h4 className="font-medium text-brand-black">
+                    Choose Your Studio Location:
+                  </h4>
+
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      id="padang"
+                      name="location"
+                      className="accent-brand-red"
+                      defaultChecked
+                    />
+                    <label
+                      htmlFor="padang"
+                      className="text-gray-700"
+                    >
+                      Padang Padang (New)
+                    </label>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      id="ungasan"
+                      name="location"
+                      className="accent-brand-red"
+                    />
+                    <label
+                      htmlFor="ungasan"
+                      className="text-gray-700"
+                    >
+                      Ungasan
+                    </label>
+                  </div>
+                </div>
+
+                <Button
+                  className="w-full mt-6 bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 flex items-center justify-center gap-2 pulse-glow"
+                  size="lg"
+                >
+                  <Phone className="h-5 w-5" />
+                  <Link href="https://wa.me/6281338702013">
+                    Book via WhatsApp
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

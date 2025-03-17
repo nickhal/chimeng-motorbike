@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 
@@ -25,9 +25,38 @@ import { cn } from "@/lib/utils";
 
 export default function BookingForm() {
   const [date, setDate] = useState<Date>();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [preferredTime, setPreferredTime] = useState("");
+  const [tattooType, setTattooType] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const dateStr = date ? format(date, "PPP") : "Not specified";
+
+    const message = `
+Hello, I'd like to book a tattoo appointment:
+
+Name: ${firstName} ${lastName}
+Phone: ${phone}
+Preferred Date: ${dateStr}
+Preferred Time: ${preferredTime || "Not specified"}
+Tattoo Type: ${tattooType || "Not specified"}
+Description: ${description || "Not specified"}
+    `.trim();
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/6281338702013?text=${encodedMessage}`, "_blank");
+  };
 
   return (
-    <form className="space-y-6 needle-cursor">
+    <form
+      className="space-y-6 needle-cursor"
+      onSubmit={handleSubmit}
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label
@@ -40,6 +69,9 @@ export default function BookingForm() {
             id="first-name"
             placeholder="Enter your first name"
             className="border-brand-black/20 focus-visible:ring-brand-red"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -53,23 +85,11 @@ export default function BookingForm() {
             id="last-name"
             placeholder="Enter your last name"
             className="border-brand-black/20 focus-visible:ring-brand-red"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
           />
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label
-          htmlFor="email"
-          className="text-brand-black font-medium"
-        >
-          Email
-        </Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          className="border-brand-black/20 focus-visible:ring-brand-red"
-        />
       </div>
 
       <div className="space-y-2">
@@ -83,6 +103,9 @@ export default function BookingForm() {
           id="phone"
           placeholder="Enter your phone number"
           className="border-brand-black/20 focus-visible:ring-brand-red"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
         />
       </div>
 
@@ -91,6 +114,7 @@ export default function BookingForm() {
         <Popover>
           <PopoverTrigger asChild>
             <Button
+              type="button"
               variant="outline"
               className={cn(
                 "w-full justify-start text-left font-normal border-brand-black/20",
@@ -122,38 +146,38 @@ export default function BookingForm() {
 
       <div className="space-y-2">
         <Label className="text-brand-black font-medium">Preferred Time</Label>
-        <Select>
+        <Select onValueChange={setPreferredTime}>
           <SelectTrigger className="border-brand-black/20 focus-visible:ring-brand-red">
             <SelectValue placeholder="Select a time" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="9am">9:00 AM</SelectItem>
-            <SelectItem value="10am">10:00 AM</SelectItem>
-            <SelectItem value="11am">11:00 AM</SelectItem>
-            <SelectItem value="12pm">12:00 PM</SelectItem>
-            <SelectItem value="1pm">1:00 PM</SelectItem>
-            <SelectItem value="2pm">2:00 PM</SelectItem>
-            <SelectItem value="3pm">3:00 PM</SelectItem>
-            <SelectItem value="4pm">4:00 PM</SelectItem>
-            <SelectItem value="5pm">5:00 PM</SelectItem>
-            <SelectItem value="6pm">6:00 PM</SelectItem>
-            <SelectItem value="7pm">7:00 PM</SelectItem>
+            <SelectItem value="9:00 AM">9:00 AM</SelectItem>
+            <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+            <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+            <SelectItem value="12:00 PM">12:00 PM</SelectItem>
+            <SelectItem value="1:00 PM">1:00 PM</SelectItem>
+            <SelectItem value="2:00 PM">2:00 PM</SelectItem>
+            <SelectItem value="3:00 PM">3:00 PM</SelectItem>
+            <SelectItem value="4:00 PM">4:00 PM</SelectItem>
+            <SelectItem value="5:00 PM">5:00 PM</SelectItem>
+            <SelectItem value="6:00 PM">6:00 PM</SelectItem>
+            <SelectItem value="7:00 PM">7:00 PM</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       <div className="space-y-2">
         <Label className="text-brand-black font-medium">Tattoo Type</Label>
-        <Select>
+        <Select onValueChange={setTattooType}>
           <SelectTrigger className="border-brand-black/20 focus-visible:ring-brand-red">
             <SelectValue placeholder="Select tattoo type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="fineline">Fineline Tattoo</SelectItem>
-            <SelectItem value="single">Single Piece</SelectItem>
-            <SelectItem value="sleeve">Sleeve Piece</SelectItem>
-            <SelectItem value="fullback">Full Back</SelectItem>
-            <SelectItem value="custom">Custom Design</SelectItem>
+            <SelectItem value="Fineline Tattoo">Fineline Tattoo</SelectItem>
+            <SelectItem value="Single Piece">Single Piece</SelectItem>
+            <SelectItem value="Sleeve Piece">Sleeve Piece</SelectItem>
+            <SelectItem value="Full Back">Full Back</SelectItem>
+            <SelectItem value="Custom Design">Custom Design</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -170,6 +194,8 @@ export default function BookingForm() {
           placeholder="Please describe your tattoo idea, size, placement, and any reference images you have"
           rows={4}
           className="border-brand-black/20 focus-visible:ring-brand-red"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
@@ -177,7 +203,7 @@ export default function BookingForm() {
         type="submit"
         className="w-full bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
       >
-        Submit Booking Request
+        Contact via WhatsApp
       </Button>
     </form>
   );
