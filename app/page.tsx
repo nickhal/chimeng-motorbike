@@ -252,7 +252,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative h-screen overflow-hidden bg-[#1A1A1A]"
+        className="relative h-screen overflow-hidden bg-[#1A1A1A] pt-20 md:pt-0"
       >
         <div className="absolute inset-0 z-0">
           <Image

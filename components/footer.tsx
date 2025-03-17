@@ -53,7 +53,7 @@ export default function Footer() {
 
           <div>
             <h3 className="mb-4 text-lg font-bold uppercase tracking-wider">
-              Address
+              Addresses
             </h3>
             <ul className="space-y-6 text-gray-400">
               <li>

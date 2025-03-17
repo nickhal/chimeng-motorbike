@@ -88,24 +88,29 @@ export default function LocationCard({
           </div>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <Button
             variant="outline"
-            className="border-brand-red text-brand-red hover:bg-brand-red hover:text-white"
+            className="border-brand-red text-brand-red hover:bg-brand-red hover:text-white w-full sm:w-auto"
           >
             <Link
               href={mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center"
+              className="flex items-center justify-center w-full"
             >
               View on Map
               <ExternalLink className="ml-2 h-4 w-4" />
             </Link>
           </Button>
 
-          <Button className="bg-brand-red hover:bg-brand-red/90 text-white">
-            <Link href="https://wa.me/6281338702013">Book at {name}</Link>
+          <Button className="bg-brand-red hover:bg-brand-red/90 text-white w-full sm:w-auto">
+            <Link
+              href="https://wa.me/6281338702013"
+              className="w-full text-center"
+            >
+              Book at {name}
+            </Link>
           </Button>
         </div>
       </div>
