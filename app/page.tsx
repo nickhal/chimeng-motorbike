@@ -440,7 +440,7 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             <PricingCard
               title="Fineline Tattoos"
-              price="500k IDR+"
+              price="600k IDR+"
               image="/images/fineline-arm.jpg"
               description="A design style that uses fine lines to create small, delicate, and detailed tattoos"
             />
