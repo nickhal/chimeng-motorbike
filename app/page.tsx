@@ -341,8 +341,8 @@ export default function Home() {
               name="Padang Padang"
               image="/images/padang-padang-location-1.jpg"
               address="Jl. Labuansait No.81, Pecatu, Uluwatu, Kabupaten Badung, Bali 80361"
-              hours="9am - 8pm everyday"
-              phone="+62 812-3456-7890"
+              hours="10am - 9pm everyday"
+              phone="+62 813-3870-2013"
               isNew={true}
               mapUrl="https://maps.google.com/?q=Padang+Padang+Beach+Bali"
               description="Our newest studio located near the famous Padang Padang Beach. Featuring ocean views, expanded facilities, and the same exceptional artistry in a breathtaking setting."
@@ -353,7 +353,7 @@ export default function Home() {
               image="/images/ungasan-location.jpg"
               address="Jl. Pura Masuka No.41, Ungasan, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
               hours="9am - 8pm everyday"
-              phone="+62 812-3456-7890"
+              phone="+62 813-3870-2013"
               mapUrl="https://maps.google.com/?q=Uluwatu+Tattoos+Bali"
               description="Our original studio in Ungasan offers a relaxed atmosphere with traditional Balinese elements. A peaceful setting for your tattoo experience with our skilled artists."
             />

@@ -128,7 +128,7 @@ export default function Navbar() {
                 >
                   <div className="relative h-10 w-10 overflow-hidden">
                     <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/LOGO%20TATO%20NEW%20BLANK-WbMeQlhj3bwu1bFLoTX6Yuk1doGjT7.png"
+                      src="/images/logo.png"
                       alt="Uluwatu Tattoos Logo"
                       width={40}
                       height={40}
