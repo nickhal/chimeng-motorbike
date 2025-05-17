@@ -25,6 +25,7 @@ export default function GallerySlider({
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<GalleryImage | null>(null);
   const [imageLoading, setImageLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -40,13 +41,21 @@ export default function GallerySlider({
       ? images
       : images.filter((img) => img.category === activeCategory);
 
+  // Check if a category has no images
+  const categoryHasImages = (category: string) => {
+    if (category === "all") return images.length > 0;
+    return images.filter((img) => img.category === category).length > 0;
+  };
+
   const handlePrev = useCallback(() => {
+    if (filteredImages.length === 0) return;
     setActiveIndex((prev) =>
       prev === 0 ? filteredImages.length - 1 : prev - 1
     );
   }, [filteredImages.length]);
 
   const handleNext = useCallback(() => {
+    if (filteredImages.length === 0) return;
     setActiveIndex((prev) =>
       prev === filteredImages.length - 1 ? 0 : prev + 1
     );
@@ -117,6 +126,26 @@ export default function GallerySlider({
     setActiveIndex(0);
   }, [activeCategory]);
 
+  // Check if images are loaded
+  useEffect(() => {
+    setIsLoading(false);
+    if (images && images.length > 0) {
+      setActiveIndex(0);
+    }
+  }, [images]);
+
+  // Verify category has images before setting it
+  const handleCategoryChange = (category: string) => {
+    if (categoryHasImages(category)) {
+      setActiveCategory(category);
+      setActiveIndex(0);
+    } else {
+      console.warn(`Category ${category} has no images`);
+      // Fallback to "all" if the category has no images
+      setActiveCategory("all");
+    }
+  };
+
   // Handle keyboard navigation and click outside to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -151,7 +180,7 @@ export default function GallerySlider({
   // Auto-advance the slider
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!modalOpen) handleNext();
+      if (!modalOpen && filteredImages.length > 0) handleNext();
     }, 5000);
 
     return () => clearInterval(interval);
@@ -170,7 +199,7 @@ export default function GallerySlider({
       <div className="mb-4 md:mb-8 flex justify-center">
         <div className="inline-flex flex-wrap md:flex-nowrap overflow-x-auto rounded-md bg-brand-gray p-1 max-w-full">
           <button
-            onClick={() => setActiveCategory("all")}
+            onClick={() => handleCategoryChange("all")}
             className={`px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
               activeCategory === "all"
                 ? "bg-brand-red text-white rounded-md"
@@ -182,12 +211,15 @@ export default function GallerySlider({
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => handleCategoryChange(category)}
               className={`px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
                 activeCategory === category
                   ? "bg-brand-red text-white rounded-md"
-                  : "text-gray-300 hover:text-white"
+                  : categoryHasImages(category)
+                  ? "text-gray-300 hover:text-white"
+                  : "text-gray-500 cursor-not-allowed"
               }`}
+              disabled={!categoryHasImages(category)}
             >
               {category}
             </button>
@@ -203,7 +235,11 @@ export default function GallerySlider({
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        {filteredImages.length > 0 ? (
+        {isLoading ? (
+          <div className="flex h-full items-center justify-center bg-brand-gray">
+            <div className="w-10 h-10 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+          </div>
+        ) : filteredImages && filteredImages.length > 0 ? (
           <>
             {filteredImages.map((image, index) => (
               <div
@@ -269,25 +305,26 @@ export default function GallerySlider({
 
       {/* Thumbnails */}
       <div className="mt-2 md:mt-4 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1 md:gap-2">
-        {filteredImages.slice(0, 8).map((image, index) => (
-          <div
-            key={`thumb-${index}`}
-            className={`relative h-16 md:h-24 cursor-pointer overflow-hidden rounded-md transition-all ${
-              index === activeIndex
-                ? "ring-2 ring-brand-red"
-                : "opacity-70 hover:opacity-100"
-            }`}
-            onClick={() => setActiveIndex(index)}
-          >
-            <Image
-              src={image.src || "/placeholder.svg"}
-              alt={`Thumbnail ${index + 1}`}
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 640px) 25vw, (max-width: 768px) 16vw, 12.5vw"
-            />
-          </div>
-        ))}
+        {filteredImages &&
+          filteredImages.slice(0, 8).map((image, index) => (
+            <div
+              key={`thumb-${index}`}
+              className={`relative h-16 md:h-24 cursor-pointer overflow-hidden rounded-md transition-all ${
+                index === activeIndex
+                  ? "ring-2 ring-brand-red"
+                  : "opacity-70 hover:opacity-100"
+              }`}
+              onClick={() => setActiveIndex(index)}
+            >
+              <Image
+                src={image.src || "/placeholder.svg"}
+                alt={`Thumbnail ${index + 1}`}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 640px) 25vw, (max-width: 768px) 16vw, 12.5vw"
+              />
+            </div>
+          ))}
       </div>
 
       {/* Lightbox Modal - Portal implementation */}

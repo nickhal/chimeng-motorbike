@@ -33,15 +33,61 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const mousePositionRef = useRef({ x: 0.5, y: 0.5 }); // Add ref to track current position
   const [shuffledImages, setShuffledImages] = useState<GalleryImage[]>([]);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   // Fisher-Yates shuffle algorithm
   const shuffleArray = (array: GalleryImage[]) => {
+    if (!array || array.length === 0) return [];
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
     }
     return newArray;
+  };
+
+  // Balance shuffle - ensures all categories have representation
+  const balancedShuffle = (images: GalleryImage[], categories: string[]) => {
+    if (!images || images.length === 0) return [];
+
+    // Group images by category
+    const imagesByCategory: Record<string, GalleryImage[]> = {};
+
+    // Initialize empty arrays for each category
+    categories.forEach((category) => {
+      imagesByCategory[category] = [];
+    });
+
+    // Group images by their category
+    images.forEach((image) => {
+      if (imagesByCategory[image.category]) {
+        imagesByCategory[image.category].push(image);
+      }
+    });
+
+    // Shuffle each category separately
+    categories.forEach((category) => {
+      imagesByCategory[category] = shuffleArray(imagesByCategory[category]);
+    });
+
+    // Combine the results in a balanced way
+    const result: GalleryImage[] = [];
+
+    // Find the category with max items to determine how many rounds we need
+    const maxItems = Math.max(
+      ...categories.map((cat) => imagesByCategory[cat].length)
+    );
+
+    // Take one from each category in turns until all are used
+    for (let i = 0; i < maxItems; i++) {
+      for (const category of categories) {
+        if (i < imagesByCategory[category].length) {
+          result.push(imagesByCategory[category][i]);
+        }
+      }
+    }
+
+    return result;
   };
 
   // Parallax effect for hero section
@@ -96,145 +142,156 @@ export default function Home() {
 
   // Initialize shuffled images on client side
   useEffect(() => {
-    const galleryImages = [
-      {
-        src: "/images/bali-demon-calf.jpg",
-        alt: "Bali Demon Calf Tattoo",
-        category: "balinese",
-      },
-      {
-        src: "/images/bali-demon-forearm.jpg",
-        alt: "Bali Demon Forearm Tattoo",
-        category: "balinese",
-      },
-      {
-        src: "/images/bali-demon-shoulder.jpg",
-        alt: "Bali Demon Shoulder Tattoo",
-        category: "balinese",
-      },
-      {
-        src: "/images/bali-pattern-forearm.jpg",
-        alt: "Bali Pattern Forearm Tattoo",
-        category: "balinese",
-      },
-      {
-        src: "/images/bali-shoulder.jpg",
-        alt: "Bali Shoulder Design",
-        category: "balinese",
-      },
-      {
-        src: "/images/ganesha-arm.jpg",
-        alt: "Ganesha Arm Tattoo",
-        category: "balinese",
-      },
-      {
-        src: "/images/back-fineline.jpg",
-        alt: "Back Fineline Tattoo",
-        category: "fineline",
-      },
-      {
-        src: "/images/butterfly-hand.jpg",
-        alt: "Butterfly Hand Tattoo",
-        category: "fineline",
-      },
-      {
-        src: "/images/butterfly-stomach.jpg",
-        alt: "Butterfly Stomach Tattoo",
-        category: "fineline",
-      },
-      {
-        src: "/images/fineline-arm.jpg",
-        alt: "Fineline Arm Design",
-        category: "fineline",
-      },
-      {
-        src: "/images/fineline-chest.jpg",
-        alt: "Fineline Chest Tattoo",
-        category: "fineline",
-      },
-      {
-        src: "/images/heart-fineline.jpg",
-        alt: "Heart Fineline Tattoo",
-        category: "fineline",
-      },
-      {
-        src: "/images/rose-fineline.jpg",
-        alt: "Rose Fineline Tattoo",
-        category: "fineline",
-      },
-      {
-        src: "/images/buddha-calf.jpg",
-        alt: "Buddha Calf Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/demon-forearm.jpg",
-        alt: "Demon Forearm Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/egyptian-calf.jpg",
-        alt: "Egyptian Calf Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/eskimo-leg.jpg",
-        alt: "Eskimo Leg Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/face-calf.jpg",
-        alt: "Face Calf Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/flower-chest.jpg",
-        alt: "Flower Chest Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/flower-design-quad.jpg",
-        alt: "Flower Design Quadrant",
-        category: "modern",
-      },
-      {
-        src: "/images/flower-sleeve.jpg",
-        alt: "Flower Sleeve Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/full-sleeve.jpg",
-        alt: "Full Sleeve Tattoo Design",
-        category: "modern",
-      },
-      {
-        src: "/images/indian-calf.jpg",
-        alt: "Indian Calf Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/japanese-woman.jpg",
-        alt: "Japanese Woman Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/lion-leg.jpg",
-        alt: "Lion Leg Tattoo",
-        category: "modern",
-      },
-      {
-        src: "/images/medusa.jpg",
-        alt: "Medusa Tattoo Design",
-        category: "modern",
-      },
-      {
-        src: "/images/wolf-shoulder.jpg",
-        alt: "Wolf Shoulder Tattoo",
-        category: "modern",
-      },
-    ];
+    try {
+      const galleryImages = [
+        {
+          src: "/images/bali-demon-calf.jpg",
+          alt: "Bali Demon Calf Tattoo",
+          category: "balinese",
+        },
+        {
+          src: "/images/bali-demon-forearm.jpg",
+          alt: "Bali Demon Forearm Tattoo",
+          category: "balinese",
+        },
+        {
+          src: "/images/bali-demon-shoulder.jpg",
+          alt: "Bali Demon Shoulder Tattoo",
+          category: "balinese",
+        },
+        {
+          src: "/images/bali-pattern-forearm.jpg",
+          alt: "Bali Pattern Forearm Tattoo",
+          category: "balinese",
+        },
+        {
+          src: "/images/bali-shoulder.jpg",
+          alt: "Bali Shoulder Design",
+          category: "balinese",
+        },
+        {
+          src: "/images/ganesha-arm.jpg",
+          alt: "Ganesha Arm Tattoo",
+          category: "balinese",
+        },
+        {
+          src: "/images/back-fineline.jpg",
+          alt: "Back Fineline Tattoo",
+          category: "fineline",
+        },
+        {
+          src: "/images/butterfly-hand.jpg",
+          alt: "Butterfly Hand Tattoo",
+          category: "fineline",
+        },
+        {
+          src: "/images/butterfly-stomach.jpg",
+          alt: "Butterfly Stomach Tattoo",
+          category: "fineline",
+        },
+        {
+          src: "/images/fineline-arm.jpg",
+          alt: "Fineline Arm Design",
+          category: "fineline",
+        },
+        {
+          src: "/images/fineline-chest.jpg",
+          alt: "Fineline Chest Tattoo",
+          category: "fineline",
+        },
+        {
+          src: "/images/heart-fineline.jpg",
+          alt: "Heart Fineline Tattoo",
+          category: "fineline",
+        },
+        {
+          src: "/images/rose-fineline.jpg",
+          alt: "Rose Fineline Tattoo",
+          category: "fineline",
+        },
+        {
+          src: "/images/buddha-calf.jpg",
+          alt: "Buddha Calf Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/demon-forearm.jpg",
+          alt: "Demon Forearm Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/egyptian-calf.jpg",
+          alt: "Egyptian Calf Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/eskimo-leg.jpg",
+          alt: "Eskimo Leg Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/face-calf.jpg",
+          alt: "Face Calf Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/flower-chest.jpg",
+          alt: "Flower Chest Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/flower-design-quad.jpg",
+          alt: "Flower Design Quadrant",
+          category: "modern",
+        },
+        {
+          src: "/images/flower-sleeve.jpg",
+          alt: "Flower Sleeve Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/full-sleeve.jpg",
+          alt: "Full Sleeve Tattoo Design",
+          category: "modern",
+        },
+        {
+          src: "/images/indian-calf.jpg",
+          alt: "Indian Calf Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/japanese-woman.jpg",
+          alt: "Japanese Woman Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/lion-leg.jpg",
+          alt: "Lion Leg Tattoo",
+          category: "modern",
+        },
+        {
+          src: "/images/medusa.jpg",
+          alt: "Medusa Tattoo Design",
+          category: "modern",
+        },
+        {
+          src: "/images/wolf-shoulder.jpg",
+          alt: "Wolf Shoulder Tattoo",
+          category: "modern",
+        },
+      ];
 
-    setShuffledImages(shuffleArray(galleryImages));
+      // Use balanced shuffle instead of regular shuffle
+      const categories = ["balinese", "modern", "fineline"];
+      const balancedImages = balancedShuffle(galleryImages, categories);
+      setShuffledImages(balancedImages);
+      setImagesLoaded(true);
+    } catch (error) {
+      console.error("Error initializing gallery images:", error);
+      // Set fallback empty array to prevent errors
+      setShuffledImages([]);
+      setImagesLoaded(true);
+    }
   }, []);
 
   // Calculate parallax transform values with scale
@@ -494,10 +551,16 @@ export default function Home() {
             </p>
           </div>
 
-          <GallerySlider
-            images={shuffledImages}
-            categories={["balinese", "modern", "fineline"]}
-          />
+          {imagesLoaded ? (
+            <GallerySlider
+              images={shuffledImages}
+              categories={["balinese", "modern", "fineline"]}
+            />
+          ) : (
+            <div className="h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-xl overflow-hidden relative flex items-center justify-center bg-brand-gray">
+              <div className="w-10 h-10 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+            </div>
+          )}
         </div>
       </section>
 
