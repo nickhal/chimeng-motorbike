@@ -9,6 +9,7 @@ jobs:
   build-and-deploy:
     name: 🏗 Build & 📂 Deploy to Hostinger
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: 📥 Checkout repository
@@ -25,6 +26,13 @@ jobs:
 
       - name: 🏗 Build the static site
         run: npm run build
+
+      - name: 🔍 Debug secrets (will show if secrets exist)
+        run: |
+          echo "FTP_HOST exists: ${{ secrets.FTP_HOST != '' }}"
+          echo "FTP_USERNAME exists: ${{ secrets.FTP_USERNAME != '' }}"
+          echo "FTP_PASSWORD exists: ${{ secrets.FTP_PASSWORD != '' }}"
+          echo "FTP_REMOTE_DIR exists: ${{ secrets.FTP_REMOTE_DIR != '' }}"
 
       - name: 📤 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
