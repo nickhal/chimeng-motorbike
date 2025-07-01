@@ -34,6 +34,11 @@ jobs:
           echo "FTP_PASSWORD exists: ${{ secrets.FTP_PASSWORD != '' }}"
           echo "FTP_REMOTE_DIR exists: ${{ secrets.FTP_REMOTE_DIR != '' }}"
 
+      - name: 🔍 Test FTP connection
+        run: |
+          echo "Testing connection to FTP server..."
+          ping -c 3 ${{ secrets.FTP_HOST }} || echo "Ping failed, but FTP might still work"
+
       - name: 📤 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -43,7 +48,7 @@ jobs:
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
           local-dir: ./out/
           port: 21
-          protocol: ftps
+          protocol: ftp
           exclude: |
             **/.git*
             **/.git*/**
