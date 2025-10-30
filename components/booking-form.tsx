@@ -29,7 +29,7 @@ export default function BookingForm() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
-  const [tattooType, setTattooType] = useState("");
+  const [bikeType, setBikeType] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
@@ -38,18 +38,18 @@ export default function BookingForm() {
     const dateStr = date ? format(date, "PPP") : "Not specified";
 
     const message = `
-Hello, I'd like to book a tattoo appointment:
+Hello, I'd like to rent a motorbike:
 
 Name: ${firstName} ${lastName}
 Phone: ${phone}
 Preferred Date: ${dateStr}
 Preferred Time: ${preferredTime || "Not specified"}
-Tattoo Type: ${tattooType || "Not specified"}
-Description: ${description || "Not specified"}
+Bike Type: ${bikeType || "Not specified"}
+Additional Info: ${description || "None"}
     `.trim();
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/6281338702013?text=${encodedMessage}`, "_blank");
+    window.open(`https://wa.me/6282247986694?text=${encodedMessage}`, "_blank");
   };
 
   return (
@@ -68,7 +68,7 @@ Description: ${description || "Not specified"}
           <Input
             id="first-name"
             placeholder="Enter your first name"
-            className="border-brand-black/20 focus-visible:ring-brand-red"
+            className="border-brand-black/20 focus-visible:ring-brand-green"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
@@ -84,7 +84,7 @@ Description: ${description || "Not specified"}
           <Input
             id="last-name"
             placeholder="Enter your last name"
-            className="border-brand-black/20 focus-visible:ring-brand-red"
+            className="border-brand-black/20 focus-visible:ring-brand-green"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
@@ -102,7 +102,7 @@ Description: ${description || "Not specified"}
         <Input
           id="phone"
           placeholder="Enter your phone number"
-          className="border-brand-black/20 focus-visible:ring-brand-red"
+          className="border-brand-black/20 focus-visible:ring-brand-green"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
@@ -147,7 +147,7 @@ Description: ${description || "Not specified"}
       <div className="space-y-2">
         <Label className="text-brand-black font-medium">Preferred Time</Label>
         <Select onValueChange={setPreferredTime}>
-          <SelectTrigger className="border-brand-black/20 focus-visible:ring-brand-red">
+          <SelectTrigger className="border-brand-black/20 focus-visible:ring-brand-green">
             <SelectValue placeholder="Select a time" />
           </SelectTrigger>
           <SelectContent>
@@ -167,17 +167,16 @@ Description: ${description || "Not specified"}
       </div>
 
       <div className="space-y-2">
-        <Label className="text-brand-black font-medium">Tattoo Type</Label>
-        <Select onValueChange={setTattooType}>
-          <SelectTrigger className="border-brand-black/20 focus-visible:ring-brand-red">
-            <SelectValue placeholder="Select tattoo type" />
+        <Label className="text-brand-black font-medium">Bike Type</Label>
+        <Select onValueChange={setBikeType}>
+          <SelectTrigger className="border-brand-black/20 focus-visible:ring-brand-green">
+            <SelectValue placeholder="Select bike type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="Fineline Tattoo">Fineline Tattoo</SelectItem>
-            <SelectItem value="Single Piece">Single Piece</SelectItem>
-            <SelectItem value="Sleeve Piece">Sleeve Piece</SelectItem>
-            <SelectItem value="Full Back">Full Back</SelectItem>
-            <SelectItem value="Custom Design">Custom Design</SelectItem>
+            <SelectItem value="Honda Scoopy">Honda Scoopy</SelectItem>
+            <SelectItem value="Honda Vario">Honda Vario</SelectItem>
+            <SelectItem value="Yamaha NMax">Yamaha NMax</SelectItem>
+            <SelectItem value="Any Available">Any Available</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -187,13 +186,13 @@ Description: ${description || "Not specified"}
           htmlFor="description"
           className="text-brand-black font-medium"
         >
-          Tattoo Description
+          Additional Information
         </Label>
         <Textarea
           id="description"
-          placeholder="Please describe your tattoo idea, size, placement, and any reference images you have"
+          placeholder="Rental duration (daily/weekly/monthly), delivery preference, or any special requests"
           rows={4}
-          className="border-brand-black/20 focus-visible:ring-brand-red"
+          className="border-brand-black/20 focus-visible:ring-brand-green"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -201,7 +200,7 @@ Description: ${description || "Not specified"}
 
       <Button
         type="submit"
-        className="w-full bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
+        className="w-full bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
       >
         Contact via WhatsApp
       </Button>

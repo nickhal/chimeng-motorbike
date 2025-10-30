@@ -24,7 +24,7 @@ export default function TestimonialCard({
               <Star
                 key={i}
                 className={`h-4 w-4 ${
-                  i < rating ? "fill-brand-red text-brand-red" : "text-gray-500"
+                  i < rating ? "fill-brand-green text-brand-green" : "text-gray-500"
                 }`}
               />
             ))}

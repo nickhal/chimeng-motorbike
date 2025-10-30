@@ -202,7 +202,7 @@ export default function GallerySlider({
             onClick={() => handleCategoryChange("all")}
             className={`px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
               activeCategory === "all"
-                ? "bg-brand-red text-white rounded-md"
+                ? "bg-brand-green text-white rounded-md"
                 : "text-gray-300 hover:text-white"
             }`}
           >
@@ -214,7 +214,7 @@ export default function GallerySlider({
               onClick={() => handleCategoryChange(category)}
               className={`px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
                 activeCategory === category
-                  ? "bg-brand-red text-white rounded-md"
+                  ? "bg-brand-green text-white rounded-md"
                   : categoryHasImages(category)
                   ? "text-gray-300 hover:text-white"
                   : "text-gray-500 cursor-not-allowed"
@@ -270,7 +270,7 @@ export default function GallerySlider({
                     <div className="absolute bottom-3 right-3 md:bottom-6 md:right-6">
                       <Button
                         onClick={(e) => openModal(image, e)}
-                        className="bg-brand-red hover:bg-brand-red/90 text-white text-xs md:text-sm py-1 px-2 md:py-2 md:px-4"
+                        className="bg-brand-green hover:bg-brand-green/90 text-white text-xs md:text-sm py-1 px-2 md:py-2 md:px-4"
                       >
                         View Larger
                       </Button>
@@ -311,7 +311,7 @@ export default function GallerySlider({
               key={`thumb-${index}`}
               className={`relative h-16 md:h-24 cursor-pointer overflow-hidden rounded-md transition-all ${
                 index === activeIndex
-                  ? "ring-2 ring-brand-red"
+                  ? "ring-2 ring-brand-green"
                   : "opacity-70 hover:opacity-100"
               }`}
               onClick={() => setActiveIndex(index)}

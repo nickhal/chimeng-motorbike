@@ -39,7 +39,7 @@ export default function PricingCard({
           {/* <Button
             variant="outline"
             size="sm"
-            className="text-xs uppercase tracking-wider border-brand-red text-brand-red hover:bg-brand-red hover:text-white"
+            className="text-xs uppercase tracking-wider border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
           >
             Learn More
           </Button> */}

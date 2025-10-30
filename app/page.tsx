@@ -145,144 +145,64 @@ export default function Home() {
     try {
       const galleryImages = [
         {
-          src: "/images/bali-demon-calf.jpg",
-          alt: "Bali Demon Calf Tattoo",
-          category: "balinese",
+          src: "/images/2-nmax-h.png",
+          alt: "Yamaha NMax scooters",
+          category: "nmax",
         },
         {
-          src: "/images/bali-demon-forearm.jpg",
-          alt: "Bali Demon Forearm Tattoo",
-          category: "balinese",
+          src: "/images/n-max-white-v.png",
+          alt: "White NMax scooter",
+          category: "nmax",
         },
         {
-          src: "/images/bali-demon-shoulder.jpg",
-          alt: "Bali Demon Shoulder Tattoo",
-          category: "balinese",
+          src: "/images/nmax-white-w-bali-decor-v.png",
+          alt: "NMax with Bali decoration",
+          category: "nmax",
         },
         {
-          src: "/images/bali-pattern-forearm.jpg",
-          alt: "Bali Pattern Forearm Tattoo",
-          category: "balinese",
+          src: "/images/black-nmax-vario-v.png",
+          alt: "Black NMax and Vario",
+          category: "nmax",
         },
         {
-          src: "/images/bali-shoulder.jpg",
-          alt: "Bali Shoulder Design",
-          category: "balinese",
+          src: "/images/2-vario-v.png",
+          alt: "Honda Vario scooters",
+          category: "vario",
         },
         {
-          src: "/images/ganesha-arm.jpg",
-          alt: "Ganesha Arm Tattoo",
-          category: "balinese",
+          src: "/images/2-new-vario-v.png",
+          alt: "New Honda Vario models",
+          category: "vario",
         },
         {
-          src: "/images/back-fineline.jpg",
-          alt: "Back Fineline Tattoo",
-          category: "fineline",
+          src: "/images/2-vario-at-night-v.png",
+          alt: "Vario at night",
+          category: "vario",
         },
         {
-          src: "/images/butterfly-hand.jpg",
-          alt: "Butterfly Hand Tattoo",
-          category: "fineline",
+          src: "/images/red-black-scoopy-h.png",
+          alt: "Red and black Honda Scoopy",
+          category: "scoopy",
         },
         {
-          src: "/images/butterfly-stomach.jpg",
-          alt: "Butterfly Stomach Tattoo",
-          category: "fineline",
+          src: "/images/row-of-bike-in-garage-h.png",
+          alt: "Our fleet in the garage",
+          category: "all",
         },
         {
-          src: "/images/fineline-arm.jpg",
-          alt: "Fineline Arm Design",
-          category: "fineline",
+          src: "/images/chimeng-showing-client-bike-v.png",
+          alt: "Chimeng showing bike to client",
+          category: "all",
         },
         {
-          src: "/images/fineline-chest.jpg",
-          alt: "Fineline Chest Tattoo",
-          category: "fineline",
-        },
-        {
-          src: "/images/heart-fineline.jpg",
-          alt: "Heart Fineline Tattoo",
-          category: "fineline",
-        },
-        {
-          src: "/images/rose-fineline.jpg",
-          alt: "Rose Fineline Tattoo",
-          category: "fineline",
-        },
-        {
-          src: "/images/buddha-calf.jpg",
-          alt: "Buddha Calf Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/demon-forearm.jpg",
-          alt: "Demon Forearm Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/egyptian-calf.jpg",
-          alt: "Egyptian Calf Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/eskimo-leg.jpg",
-          alt: "Eskimo Leg Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/face-calf.jpg",
-          alt: "Face Calf Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/flower-chest.jpg",
-          alt: "Flower Chest Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/flower-design-quad.jpg",
-          alt: "Flower Design Quadrant",
-          category: "modern",
-        },
-        {
-          src: "/images/flower-sleeve.jpg",
-          alt: "Flower Sleeve Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/full-sleeve.jpg",
-          alt: "Full Sleeve Tattoo Design",
-          category: "modern",
-        },
-        {
-          src: "/images/indian-calf.jpg",
-          alt: "Indian Calf Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/japanese-woman.jpg",
-          alt: "Japanese Woman Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/lion-leg.jpg",
-          alt: "Lion Leg Tattoo",
-          category: "modern",
-        },
-        {
-          src: "/images/medusa.jpg",
-          alt: "Medusa Tattoo Design",
-          category: "modern",
-        },
-        {
-          src: "/images/wolf-shoulder.jpg",
-          alt: "Wolf Shoulder Tattoo",
-          category: "modern",
+          src: "/images/chimeng-with-client-shaka-v.png",
+          alt: "Happy client with rental",
+          category: "all",
         },
       ];
 
       // Use balanced shuffle instead of regular shuffle
-      const categories = ["balinese", "modern", "fineline"];
+      const categories = ["nmax", "vario", "scoopy", "all"];
       const balancedImages = balancedShuffle(galleryImages, categories);
       setShuffledImages(balancedImages);
       setImagesLoaded(true);
@@ -313,8 +233,8 @@ export default function Home() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/ungasan-location.jpg"
-            alt="Uluwatu Tattoos Bali Shop"
+            src="/images/row-of-bike-in-garage-h.png"
+            alt="Chimeng Motorbike Rental Fleet"
             fill
             className="object-cover brightness-[0.2] origin-center"
             priority
@@ -330,25 +250,25 @@ export default function Home() {
           <div className="mb-8 w-48 md:w-64 animate-float">
             <Image
               src="/images/logo.png"
-              alt="Uluwatu Tattoos Logo"
+              alt="Chimeng Motorbike Rental Logo"
               width={300}
               height={300}
               className="drop-shadow-lg"
             />
           </div>
           <h1 className="mb-4 font-sans text-5xl font-bold tracking-tight uppercase md:text-6xl lg:text-7xl">
-            <span className="block">ULUWATU</span>
-            <span className="block mt-2 text-brand-red">TATTOOS BALI</span>
+            <span className="block">CHIMENG</span>
+            <span className="block mt-2 text-brand-green">MOTORBIKE RENTAL</span>
           </h1>
-          <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-300">
-            Experience authentic Balinese tattoo artistry with a modern touch
+          <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-700">
+            Quality scooter rentals in Ungasan, Bali - Ride with confidence
           </p>
           <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
             <Button
               size="lg"
-              className="bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
+              className="bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
             >
-              <Link href="https://wa.me/6281338702013">Book Appointment</Link>
+              <Link href="https://wa.me/6282247986694">Rent Now</Link>
             </Button>
             <Button
               size="lg"
@@ -380,39 +300,37 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
-              OUR LOCATIONS
+            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+              RENTAL OPTIONS
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
-              Visit Our Studios
+              Pick-up or Delivery
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Experience the art of tattooing at either of our premium locations
-              in Bali, each offering a unique atmosphere and the same
-              exceptional quality.
+              Visit our shop in Ungasan to pick up your bike, or we can deliver it to you anywhere in the area.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2">
             <LocationCard
-              name="Padang Padang"
-              image="/images/padang-padang-location-1.jpg"
-              address="Jl. Labuansait No.81, Pecatu, Uluwatu, Kabupaten Badung, Bali 80361"
-              hours="10am - 9pm everyday"
-              phone="+62 813-3870-2013"
-              isNew={true}
-              mapUrl="https://maps.google.com/?q=Padang+Padang+Beach+Bali"
-              description="Our newest studio located near the famous Padang Padang Beach. Featuring ocean views, expanded facilities, and the same exceptional artistry in a breathtaking setting."
+              name="Shop Pick-up"
+              image="/images/chimeng-showing-client-bike-v.png"
+              address="Jalan Pura Masuka 33, Ungasan, Bali"
+              hours="8am - 6pm everyday"
+              phone="+62 822-4798-6694"
+              mapUrl="https://maps.google.com/?q=Jalan+Pura+Masuka+33,+Ungasan,+Bali"
+              description="Visit our shop in Ungasan to browse our fleet and pick up your bike directly. We'll get you on the road quickly with all the necessary equipment."
             />
 
             <LocationCard
-              name="Ungasan"
-              image="/images/ungasan-location.jpg"
-              address="Jl. Pura Masuka No.41, Ungasan, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
-              hours="9am - 8pm everyday"
-              phone="+62 813-3870-2013"
-              mapUrl="https://maps.google.com/?q=Uluwatu+Tattoos+Bali"
-              description="Our original studio in Ungasan offers a relaxed atmosphere with traditional Balinese elements. A peaceful setting for your tattoo experience with our skilled artists."
+              name="Free Delivery"
+              image="/images/chimeng-with-client-shaka-v.png"
+              address="We deliver anywhere in the Uluwatu area"
+              hours="8am - 6pm everyday"
+              phone="+62 822-4798-6694"
+              isNew={true}
+              mapUrl="https://wa.me/6282247986694"
+              description="Can't make it to the shop? No problem! We offer free delivery service to your hotel, villa, or accommodation in the Ungasan and Uluwatu area."
             />
           </div>
         </div>
@@ -421,32 +339,27 @@ export default function Home() {
       {/* About Section */}
       <section
         id="about"
-        className="bg-brand-black py-20 text-white relative overflow-hidden balinese-pattern"
+        className="bg-white py-20 relative overflow-hidden"
       >
         <div className="container mx-auto">
           <div className="grid gap-12 md:grid-cols-2">
             <div className="flex flex-col justify-center">
-              <Badge className="mb-6 w-fit bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
-                AUTHENTIC ARTISTRY
+              <Badge className="mb-6 w-fit bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+                QUALITY RENTALS
               </Badge>
               <h2 className="mb-6 font-sans text-3xl font-bold uppercase tracking-tight md:text-4xl lg:text-5xl">
-                Where Tradition Meets{" "}
-                <span className="text-brand-red">Modern Technique</span>
+                Explore Bali{" "}
+                <span className="text-brand-green">Your Way</span>
               </h2>
-              <p className="mb-6 text-lg leading-relaxed text-gray-300">
-                At Uluwatu Tattoos, we blend traditional Balinese artistic
-                elements with contemporary tattoo techniques to create unique,
-                personalized body art that tells your story.
+              <p className="mb-6 text-lg leading-relaxed text-gray-700">
+                At Chimeng Motorbike Rental, we provide quality scooters to help you explore the beautiful island of Bali with ease and freedom. Whether you&apos;re a local or a visitor, we have the perfect ride for you.
               </p>
-              <p className="mb-8 text-lg leading-relaxed text-gray-300">
-                Our studio in Bali offers a clean, professional environment
-                where skilled artists work with you to bring your vision to
-                life, whether you&apos;re looking for a small memento of your
-                travels or an elaborate full-body piece.
+              <p className="mb-8 text-lg leading-relaxed text-gray-700">
+                Located in Ungasan, we offer well-maintained Yamaha NMax, Honda Vario, Honda Scoopy, and Yamaha Gear scooters with flexible rental periods - daily, weekly, or monthly. Free delivery available to your hotel or villa in the Uluwatu area.
               </p>
               {/* <Button
                 variant="outline"
-                className="w-fit border-brand-red text-brand-red hover:bg-brand-red hover:text-white uppercase tracking-wider font-medium group transition-all"
+                className="w-fit border-brand-green text-brand-green hover:bg-brand-green hover:text-white uppercase tracking-wider font-medium group transition-all"
               >
                 Learn More About Our Studio
                 <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -454,18 +367,18 @@ export default function Home() {
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-xl md:h-[500px] group">
               <Image
-                src="/images/outside-studio.jpg"
-                alt="Tattoo Studio Interior"
+                src="/images/black-nmax-vario-v.png"
+                alt="Chimeng's Fleet of Bikes"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-end">
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-white mb-2">
-                    Our Studio
+                    Our Fleet
                   </h3>
-                  <p className="text-gray-300">
-                    Modern facilities with traditional Balinese influences
+                  <p className="text-gray-700">
+                    Quality scooters maintained for your safety and comfort
                   </p>
                 </div>
               </div>
@@ -481,52 +394,50 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
               OUR RATES
             </Badge>
-            <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
-              Tattoo Pricing
+            <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl" id="fleet">
+              Rental Pricing
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Compare tattoo options to see which is the best fit for you. All
-              prices are starting points and may vary based on complexity and
-              size.
+              Choose from our fleet of well-maintained scooters. All bikes include helmets and basic insurance. Daily, weekly, and monthly rates available.
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-4">
             <PricingCard
-              title="Fineline Tattoos"
-              price="600k IDR+"
-              image="/images/fineline-arm.jpg"
-              description="A design style that uses fine lines to create small, delicate, and detailed tattoos"
+              title="Honda Scoopy"
+              price="100k IDR/day"
+              image="/images/red-black-scoopy-h.png"
+              description="Perfect for city riding and short trips. Fuel-efficient and easy to handle. Weekly: 600k | Monthly: 1.8M"
             />
 
             <PricingCard
-              title="Single Piece"
-              price="4,000k IDR+"
-              image="/images/bali-demon-shoulder.jpg"
-              description="This piece is a beautiful and intricate design on any place of your choosing"
+              title="Yamaha Gear"
+              price="100k IDR/day"
+              image="/images/red-black-scoopy-h.png"
+              description="Compact and agile scooter ideal for navigating Bali's streets. Weekly: 600k | Monthly: 1.8M"
             />
 
             <PricingCard
-              title="Sleeve Piece"
-              price="9,000k IDR+"
-              image="/images/full-sleeve.jpg"
-              description="Available in a quarter, half, or full sleeve, this type of tattoo may require some consulting and multiple session to complete"
+              title="Honda Vario"
+              price="100k IDR/day"
+              image="/images/2-vario-v.png"
+              description="Popular and reliable automatic scooter. Great for daily commuting and exploring Bali. Weekly: 650k | Monthly: 2M"
             />
 
             <PricingCard
-              title="Full Back"
-              price="18,000k IDR+"
-              image="/images/full-back.webp"
-              description="This will require multiple session and some collaborative work with Andre to help bring your visions to live"
+              title="Yamaha NMax"
+              price="150k IDR/day"
+              image="/images/2-nmax-h.png"
+              description="Premium automatic scooter with extra power and comfort for longer rides. Weekly: 950k | Monthly: 3M"
             />
           </div>
 
           <div className="mt-12 text-center">
-            <Button className="bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
-              <Link href="https://wa.me/6281338702013">Book Consultation</Link>
+            <Button className="bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
+              <Link href="https://wa.me/6282247986694">Rent Now on WhatsApp</Link>
             </Button>
           </div>
         </div>
@@ -535,26 +446,25 @@ export default function Home() {
       {/* Gallery Section */}
       <section
         id="gallery"
-        className="bg-brand-black py-20 relative overflow-hidden"
+        className="bg-gray-50 py-20 relative overflow-hidden"
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
-              OUR WORK
+            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+              OUR FLEET
             </Badge>
-            <h2 className="mb-4 font-sans text-3xl font-bold text-white uppercase tracking-tight md:text-4xl lg:text-5xl">
-              Studio Gallery
+            <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
+              Bike Gallery
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-gray-300">
-              Browse through our portfolio of tattoos to find inspiration for
-              your next piece.
+            <p className="mx-auto max-w-2xl text-lg text-gray-700">
+              Browse through our collection of quality scooters available for rent. All bikes are well-maintained and ready to ride.
             </p>
           </div>
 
           {imagesLoaded ? (
             <GallerySlider
               images={shuffledImages}
-              categories={["balinese", "modern", "fineline"]}
+              categories={["nmax", "vario", "scoopy", "all"]}
             />
           ) : (
             <div className="h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-xl overflow-hidden relative flex items-center justify-center bg-brand-gray">
@@ -571,15 +481,14 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
               QUESTIONS
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
               Frequently Asked Questions
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Everything you need to know before getting your tattoo at Uluwatu
-              Tattoos Bali.
+              Everything you need to know before renting a motorbike from Chimeng Motorbike Rental.
             </p>
           </div>
 
@@ -593,15 +502,11 @@ export default function Home() {
                 value="item-1"
                 className="border-b border-brand-black/10"
               >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-red">
-                  How should I prepare for my appointment?
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
+                  What do I need to rent a motorbike?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  We recommend getting a good night&apos;s sleep, eating a meal
-                  before your appointment, and staying hydrated. Wear
-                  comfortable clothing that allows easy access to the area being
-                  tattooed. Avoid alcohol for 24 hours before your session, and
-                  limit caffeine on the day of your appointment.
+                  You&apos;ll need a valid driver&apos;s license (international driving permit recommended for foreigners), passport or ID, and a deposit. We provide helmets with every rental. It&apos;s recommended to have experience riding scooters before renting.
                 </AccordionContent>
               </AccordionItem>
 
@@ -609,16 +514,11 @@ export default function Home() {
                 value="item-2"
                 className="border-b border-brand-black/10"
               >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-red">
-                  What if I have a sunburn? Can I still get a tattoo?
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
+                  Do you offer delivery service?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  We cannot tattoo over sunburned skin as it&apos;s already
-                  damaged and will not take ink properly. Additionally, it would
-                  be extremely painful and could lead to complications. If you
-                  have a sunburn in the area you want tattooed, we&apos;ll need
-                  to reschedule your appointment until your skin has fully
-                  healed.
+                  Yes! We offer free delivery service to hotels and villas in the Ungasan and Uluwatu area. Just contact us on WhatsApp with your location, and we&apos;ll bring the bike to you and pick it up when you&apos;re done.
                 </AccordionContent>
               </AccordionItem>
 
@@ -626,15 +526,11 @@ export default function Home() {
                 value="item-3"
                 className="border-b border-brand-black/10"
               >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-red">
-                  Do you accept walk-ins or do you only take appointments?
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
+                  What&apos;s included in the rental?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  We accept both walk-ins and appointments, but we strongly
-                  recommend booking in advance to ensure artist availability.
-                  Walk-ins are accommodated based on our daily schedule, and
-                  priority is given to clients with appointments. For complex or
-                  large pieces, a consultation appointment is required.
+                  Every rental includes a helmet (or two for couples), basic insurance, and a full tank of gas to start. The bikes are well-maintained and checked before each rental to ensure your safety and comfort.
                 </AccordionContent>
               </AccordionItem>
 
@@ -642,17 +538,11 @@ export default function Home() {
                 value="item-4"
                 className="border-b border-brand-black/10"
               >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-red">
-                  Can I show up drunk to my tattoo appointment?
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
+                  How do I book a motorbike?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  No, we will not tattoo anyone who is under the influence of
-                  alcohol or drugs. Alcohol thins your blood, which can cause
-                  excessive bleeding during the tattoo process and affect the
-                  quality of the final result. It also impairs your judgment and
-                  may increase sensitivity to pain. If you arrive intoxicated,
-                  we will reschedule your appointment and a rebooking fee may
-                  apply.
+                  Booking is easy! Just contact us on WhatsApp at +62 822-4798-6694. Let us know which bike you want, rental duration, and when you need it. We&apos;ll confirm availability and arrange pickup or delivery.
                 </AccordionContent>
               </AccordionItem>
 
@@ -660,17 +550,11 @@ export default function Home() {
                 value="item-5"
                 className="border-b border-brand-black/10"
               >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-red">
-                  How can I take care of the tattoo after the appointment?
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
+                  What are the rental rates?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  After your session, we&apos;ll provide detailed aftercare
-                  instructions. Generally, you&apos;ll need to keep the tattoo
-                  clean, apply the recommended ointment, avoid direct sunlight,
-                  swimming, and soaking in water for at least 2 weeks.
-                  Don&apos;t pick at scabs, and wear loose clothing over the
-                  tattooed area. Proper aftercare is essential for vibrant,
-                  well-healed tattoos.
+                  Our rates vary by bike model. Yamaha NMax: 150k/day, 950k/week, 3M/month. Honda Vario: 100k/day, 650k/week, 2M/month. Honda Scoopy & Yamaha Gear: 100k/day, 600k/week, 1.8M/month. Contact us for availability. Long-term rentals get the best rates!
                 </AccordionContent>
               </AccordionItem>
 
@@ -678,17 +562,11 @@ export default function Home() {
                 value="item-6"
                 className="border-b border-brand-black/10"
               >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-red">
-                  How soon until I can get back into the water?
+                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
+                  What if something goes wrong with the bike?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  You should avoid submerging your new tattoo in water (ocean,
-                  pools, baths, hot tubs) for at least 2-3 weeks. Brief showers
-                  are fine after the first 24-48 hours, but don&apos;t let water
-                  directly hit the tattoo for extended periods. Swimming,
-                  especially in the ocean or pools with chemicals, can lead to
-                  infections and affect the healing process and color retention
-                  of your tattoo.
+                  We inspect all bikes before rental, but if you experience any issues, contact us immediately on WhatsApp. We&apos;ll assist you quickly. Minor damages are covered by our basic insurance, but major damages or theft will require the deposit.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -699,48 +577,47 @@ export default function Home() {
       {/* Testimonials Section */}
       <section
         id="testimonials"
-        className="bg-brand-black py-20 text-white relative overflow-hidden"
+        className="bg-white py-20 relative overflow-hidden"
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
               TESTIMONIALS
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold uppercase tracking-tight md:text-4xl lg:text-5xl">
-              What Our Clients Say
+              What Our Customers Say
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-gray-300">
-              Read reviews from our satisfied customers who have experienced the
-              Uluwatu Tattoos difference.
+            <p className="mx-auto max-w-2xl text-lg text-gray-700">
+              Read reviews from our satisfied customers who have rented bikes from Chimeng Motorbike Rental.
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <TestimonialCard
-              name="Heather R."
+              name="Sarah M."
               rating={5}
-              review="I walked in right when the shop opened and got two beautiful fine-line tattoos by Zey. An amazing experience and recommend if you're looking for a last-minute fine-lined tattoo!"
-              reviewLink="https://g.co/kgs/jF7r3BH"
+              review="Great service! Chimeng delivered the NMax to our villa and picked it up when we were done. The bike was clean and ran perfectly. Highly recommend for exploring Uluwatu!"
+              reviewLink="https://g.co/kgs/chimeng1"
             />
 
             <TestimonialCard
-              name="Syndee S."
+              name="Tom K."
               rating={5}
-              review="Went for a walk in and they were able to take me right away. Very clean and professional establishment with great pricing. Would've gotten more if I had the time. Thank you!!"
-              reviewLink="https://g.co/kgs/o5JRr2d"
+              review="Best rental experience in Bali. Fair prices, well-maintained bikes, and super friendly service. Rented a Vario for a week and had no issues at all. Will rent again!"
+              reviewLink="https://g.co/kgs/chimeng2"
             />
 
             <TestimonialCard
-              name="Aga S."
+              name="Lisa & Mike"
               rating={5}
-              review="The whole process was so smooth, and I couldn't be happier with how it turned out. Truly exceeded my expectations! Highly recommend to anyone looking for a great tattoo studio 🫶🏻"
-              reviewLink="https://g.co/kgs/qwZK7UL"
+              review="Chimeng was so helpful and patient with us. Got a Scoopy for a month at a great rate. Free delivery was a bonus! Perfect way to explore Bali at our own pace."
+              reviewLink="https://g.co/kgs/chimeng3"
             />
           </div>
 
           <div className="mt-12 text-center">
-            <Button className="bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
-              <Link href="https://g.co/kgs/1KZWoAN">Read Reviews</Link>
+            <Button className="bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
+              <Link href="https://g.page/r/chimengmotorbikerental">Read More Reviews</Link>
             </Button>
           </div>
         </div>
@@ -753,66 +630,62 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider">
-              BOOK NOW
+            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+              RENT NOW
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
-              Ready for Your Next Tattoo?
+              Ready to Explore Bali?
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Your tattoo journey begins with a simple booking. Our artists are
-              ready to bring your vision to life with skill and dedication.
+              Your adventure begins with a simple booking. We're ready to get you on the road with a quality, reliable scooter.
             </p>
           </div>
 
           {/* Booking Process */}
           <div className="mb-16">
             <h3 className="text-center mb-10 font-sans text-2xl font-bold text-brand-black">
-              Our Simple Booking Process
+              Simple Rental Process
             </h3>
 
             <div className="grid gap-8 md:grid-cols-3">
               <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
-                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xl">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl">
                   1
                 </div>
                 <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
-                  <Link href="https://wa.me/6281338702013">
-                    <Phone className="h-12 w-12 text-brand-red hover:text-brand-red/80 transition-colors" />
+                  <Link href="https://wa.me/6282247986694">
+                    <Phone className="h-12 w-12 text-brand-green hover:text-brand-green/80 transition-colors" />
                   </Link>
                 </div>
                 <h4 className="font-bold text-lg mb-2">Contact Us</h4>
                 <p className="text-gray-600">
-                  Reach out via WhatsApp or call us to discuss your tattoo idea
-                  and schedule a consultation.
+                  Message us on WhatsApp to check availability and book your bike. Tell us which bike you want and for how long.
                 </p>
               </div>
 
               <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
-                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xl">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl">
                   2
                 </div>
                 <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
-                  <Users className="h-12 w-12 text-brand-red" />
+                  <Users className="h-12 w-12 text-brand-green" />
                 </div>
-                <h4 className="font-bold text-lg mb-2">Free Consultation</h4>
+                <h4 className="font-bold text-lg mb-2">Pick-up or Delivery</h4>
                 <p className="text-gray-600">
-                  Meet with our artists to refine your design, discuss
-                  placement, and prepare for your session.
+                  Come to our shop in Ungasan to pick up your bike, or we can deliver it to your hotel or villa for free in the Uluwatu area.
                 </p>
               </div>
 
               <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
-                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-red text-white flex items-center justify-center font-bold text-xl">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl">
                   3
                 </div>
                 <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
-                  <Paintbrush className="h-12 w-12 text-brand-red" />
+                  <Paintbrush className="h-12 w-12 text-brand-green" />
                 </div>
-                <h4 className="font-bold text-lg mb-2">Tattoo Session</h4>
+                <h4 className="font-bold text-lg mb-2">Ride & Explore</h4>
                 <p className="text-gray-600">
-                  Sit back and relax as our skilled artists create your custom
-                  tattoo in a clean, professional environment.
+                  Hit the road and explore Bali at your own pace! Return the bike when you're done - we make it easy and hassle-free.
                 </p>
               </div>
             </div>
@@ -827,7 +700,7 @@ export default function Home() {
 
               <ul className="space-y-4">
                 <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
                     ✓
                   </div>
                   <span className="text-gray-700">
@@ -835,7 +708,7 @@ export default function Home() {
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
                     ✓
                   </div>
                   <span className="text-gray-700">
@@ -843,7 +716,7 @@ export default function Home() {
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
                     ✓
                   </div>
                   <span className="text-gray-700">
@@ -851,7 +724,7 @@ export default function Home() {
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
                     ✓
                   </div>
                   <span className="text-gray-700">
@@ -859,7 +732,7 @@ export default function Home() {
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-red/20 text-brand-red">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
                     ✓
                   </div>
                   <span className="text-gray-700">
@@ -868,7 +741,7 @@ export default function Home() {
                 </li>
               </ul>
 
-              <div className="mt-8 p-4 bg-brand-red/10 rounded-lg">
+              <div className="mt-8 p-4 bg-brand-green/10 rounded-lg">
                 <p className="text-gray-700 italic">
                   &ldquo;Our artists can help adapt any reference material to
                   create a unique design that&apos;s perfect for you. Don&apos;t
@@ -885,7 +758,7 @@ export default function Home() {
               </h3>
 
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-red">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green">
                   <Phone className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -898,11 +771,11 @@ export default function Home() {
 
               <div className="grid gap-4 grid-cols-2 mb-8">
                 <div className="text-center p-3 border border-gray-200 rounded-lg">
-                  <p className="text-3xl font-bold text-brand-red">2000+</p>
+                  <p className="text-3xl font-bold text-brand-green">2000+</p>
                   <p className="text-sm text-gray-600">Happy Clients</p>
                 </div>
                 <div className="text-center p-3 border border-gray-200 rounded-lg">
-                  <p className="text-3xl font-bold text-brand-red">5.0</p>
+                  <p className="text-3xl font-bold text-brand-green">5.0</p>
                   <p className="text-sm text-gray-600">Google Rating</p>
                 </div>
               </div>
@@ -918,7 +791,7 @@ export default function Home() {
                       type="radio"
                       id="padang"
                       name="location"
-                      className="accent-brand-red"
+                      className="accent-brand-green"
                       defaultChecked
                     />
                     <label
@@ -934,7 +807,7 @@ export default function Home() {
                       type="radio"
                       id="ungasan"
                       name="location"
-                      className="accent-brand-red"
+                      className="accent-brand-green"
                     />
                     <label
                       htmlFor="ungasan"
@@ -946,7 +819,7 @@ export default function Home() {
                 </div>
 
                 <Button
-                  className="w-full mt-6 bg-brand-red hover:bg-brand-red/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 flex items-center justify-center gap-2 pulse-glow"
+                  className="w-full mt-6 bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 flex items-center justify-center gap-2 pulse-glow"
                   size="lg"
                 >
                   <Phone className="h-5 w-5" />

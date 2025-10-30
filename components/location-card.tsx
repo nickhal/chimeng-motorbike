@@ -39,7 +39,7 @@ export default function LocationCard({
       <div className="relative h-[250px] overflow-hidden">
         <Image
           src={image || "/placeholder.svg"}
-          alt={`Uluwatu Tattoos ${name} Location`}
+          alt={`Chimeng Motorbike Rental ${name}`}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
@@ -53,7 +53,7 @@ export default function LocationCard({
               {name}
             </h3>
             {isNew && (
-              <Badge className="mt-2 bg-brand-red text-white uppercase tracking-wider animate-pulse">
+              <Badge className="mt-2 bg-brand-green text-white uppercase tracking-wider animate-pulse">
                 New Location
               </Badge>
             )}
@@ -66,21 +66,21 @@ export default function LocationCard({
 
         <div className="space-y-3 mb-6">
           <div className="flex items-start gap-3">
-            <MapPin className="h-5 w-5 text-brand-red mt-1 flex-shrink-0" />
+            <MapPin className="h-5 w-5 text-brand-green mt-1 flex-shrink-0" />
             <p className="text-gray-700">{address}</p>
           </div>
 
           <div className="flex items-start gap-3">
-            <Clock className="h-5 w-5 text-brand-red mt-1 flex-shrink-0" />
+            <Clock className="h-5 w-5 text-brand-green mt-1 flex-shrink-0" />
             <p className="text-gray-700">{hours}</p>
           </div>
 
           <div className="flex items-start gap-3">
-            <Phone className="h-5 w-5 text-brand-red mt-1 flex-shrink-0" />
+            <Phone className="h-5 w-5 text-brand-green mt-1 flex-shrink-0" />
             <p className="text-gray-700">
               <Link
                 href={`https://wa.me/${phone.replace(/[^0-9]/g, "")}`}
-                className="hover:text-brand-red transition-colors hover:underline"
+                className="hover:text-brand-green transition-colors hover:underline"
               >
                 {phone}
               </Link>
@@ -91,7 +91,7 @@ export default function LocationCard({
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           <Button
             variant="outline"
-            className="border-brand-red text-brand-red hover:bg-brand-red hover:text-white w-full sm:w-auto"
+            className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white w-full sm:w-auto"
           >
             <Link
               href={mapUrl}
@@ -104,12 +104,12 @@ export default function LocationCard({
             </Link>
           </Button>
 
-          <Button className="bg-brand-red hover:bg-brand-red/90 text-white w-full sm:w-auto">
+          <Button className="bg-brand-green hover:bg-brand-green/90 text-white w-full sm:w-auto">
             <Link
-              href="https://wa.me/6281338702013"
+              href="https://wa.me/6282247986694"
               className="w-full text-center"
             >
-              Book at {name}
+              Contact Us
             </Link>
           </Button>
         </div>

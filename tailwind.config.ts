@@ -64,13 +64,14 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom brand colors
+        // Custom brand colors - Clean neutral catalog
         brand: {
-          red: "#B23C31",
-          gold: "#C9A66B",
-          black: "#1A1A1A",
-          gray: "#333333",
-          lightgray: "#F5F5F5",
+          green: "#546E7A", // Blue-gray slate - primary accent
+          yellow: "#90A4AE", // Light slate
+          red: "#78909C", // Medium slate
+          black: "#37474F", // Dark slate
+          gray: "#78909C",
+          lightgray: "#FAFBFC",
         },
       },
       borderRadius: {

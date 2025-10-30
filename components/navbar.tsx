@@ -40,7 +40,7 @@ export default function Navbar() {
           <div className="relative h-12 w-12 overflow-hidden transition-transform duration-300 group-hover:scale-110">
             <Image
               src="/images/logo.png"
-              alt="Uluwatu Tattoos Logo"
+              alt="Chimeng Motorbike Rental Logo"
               width={48}
               height={48}
               className="object-contain"
@@ -51,30 +51,30 @@ export default function Navbar() {
               isScrolled ? "text-white" : "text-white"
             }`}
           >
-            ULUWATU TATTOOS
+            CHIMENG MOTORBIKE
           </span>
         </Link>
 
         <nav className="hidden items-center space-x-8 md:flex">
           <Link
             href="#about"
-            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-red ${
+            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-green ${
               isScrolled ? "text-white" : "text-white"
             }`}
           >
             About
           </Link>
           <Link
-            href="#artists"
-            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-red ${
+            href="#fleet"
+            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-green ${
               isScrolled ? "text-white" : "text-white"
             }`}
           >
-            Artists
+            Our Fleet
           </Link>
           <Link
             href="#gallery"
-            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-red ${
+            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-green ${
               isScrolled ? "text-white" : "text-white"
             }`}
           >
@@ -82,7 +82,7 @@ export default function Navbar() {
           </Link>
           <Link
             href="#pricing"
-            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-red ${
+            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-green ${
               isScrolled ? "text-white" : "text-white"
             }`}
           >
@@ -90,14 +90,14 @@ export default function Navbar() {
           </Link>
           <Link
             href="#faq"
-            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-red ${
+            className={`text-sm font-medium tracking-wide uppercase transition-colors hover:text-brand-green ${
               isScrolled ? "text-white" : "text-white"
             }`}
           >
             FAQ
           </Link>
-          <Button className="bg-brand-red text-white hover:bg-brand-red/90 transition-transform hover:scale-105 uppercase tracking-wider font-medium">
-            <Link href="https://wa.me/6281338702013">Book Now</Link>
+          <Button className="bg-brand-green text-white hover:bg-brand-green/90 transition-transform hover:scale-105 uppercase tracking-wider font-medium">
+            <Link href="https://wa.me/6282247986694">Book Now</Link>
           </Button>
         </nav>
 
@@ -129,14 +129,14 @@ export default function Navbar() {
                   <div className="relative h-10 w-10 overflow-hidden">
                     <Image
                       src="/images/logo.png"
-                      alt="Uluwatu Tattoos Logo"
+                      alt="Chimeng Motorbike Rental Logo"
                       width={40}
                       height={40}
                       className="object-contain"
                     />
                   </div>
                   <span className="text-lg font-bold tracking-wider uppercase">
-                    ULUWATU TATTOOS
+                    CHIMENG MOTORBIKE
                   </span>
                 </Link>
               </div>
@@ -144,42 +144,42 @@ export default function Navbar() {
               <nav className="mt-12 flex flex-col space-y-8">
                 <Link
                   href="#about"
-                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-red"
+                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-green"
                 >
                   About
                 </Link>
                 <Link
-                  href="#artists"
-                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-red"
+                  href="#fleet"
+                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-green"
                 >
-                  Artists
+                  Our Fleet
                 </Link>
                 <Link
                   href="#gallery"
-                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-red"
+                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-green"
                 >
                   Gallery
                 </Link>
                 <Link
                   href="#pricing"
-                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-red"
+                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-green"
                 >
                   Pricing
                 </Link>
                 <Link
                   href="#faq"
-                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-red"
+                  className="text-lg font-medium tracking-wide uppercase transition-colors hover:text-brand-green"
                 >
                   FAQ
                 </Link>
-                <Button className="mt-4 w-full bg-brand-red text-white hover:bg-brand-red/90 uppercase tracking-wider font-medium">
-                  <Link href="https://wa.me/6281338702013">Book Now</Link>
+                <Button className="mt-4 w-full bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider font-medium">
+                  <Link href="https://wa.me/6282247986694">Book Now</Link>
                 </Button>
               </nav>
 
               <div className="mt-auto pb-8">
                 <p className="text-sm text-gray-400">
-                  © {new Date().getFullYear()} Uluwatu Tattoos Bali. All rights
+                  © {new Date().getFullYear()} Chimeng Motorbike Rental. All rights
                   reserved.
                 </p>
               </div>

@@ -33,7 +33,7 @@ export default function ArtistCard({ name, image, specialty, description }: Arti
           <div className="absolute bottom-4 left-4 right-4">
             <Button
               variant="outline"
-              className="w-full border-white text-white hover:bg-brand-red hover:border-brand-red uppercase tracking-wider"
+              className="w-full border-white text-white hover:bg-brand-green hover:border-brand-green uppercase tracking-wider"
             >
               View Profile
             </Button>
@@ -42,7 +42,7 @@ export default function ArtistCard({ name, image, specialty, description }: Arti
       </div>
       <div className="p-6">
         <h3 className="mb-1 font-sans text-xl font-bold text-brand-black uppercase">{name}</h3>
-        <p className="mb-3 text-sm font-medium text-brand-red uppercase tracking-wider">{specialty}</p>
+        <p className="mb-3 text-sm font-medium text-brand-green uppercase tracking-wider">{specialty}</p>
         <p className="text-gray-600">{description}</p>
       </div>
     </div>

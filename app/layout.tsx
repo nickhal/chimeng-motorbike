@@ -16,9 +16,9 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Uluwatu Tattoos Bali | Premium Tattoo Studio",
+  title: "Chimeng Motorbike Rental Bali | Quality Bike Rentals in Ungasan",
   description:
-    "Experience authentic Balinese tattoo artistry in a modern studio setting. Book your appointment today.",
+    "Rent quality motorbikes in Ungasan, Bali. NMax, Scoopy, and Vario scooters available with daily, weekly, and monthly rates. Free delivery available.",
 };
 
 export default function RootLayout({
