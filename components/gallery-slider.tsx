@@ -195,38 +195,6 @@ export default function GallerySlider({
 
   return (
     <div className="relative">
-      {/* Category Tabs */}
-      <div className="mb-4 md:mb-8 flex justify-center">
-        <div className="inline-flex flex-wrap md:flex-nowrap overflow-x-auto rounded-md bg-brand-gray p-1 max-w-full">
-          <button
-            onClick={() => handleCategoryChange("all")}
-            className={`px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
-              activeCategory === "all"
-                ? "bg-brand-green text-white rounded-md"
-                : "text-gray-300 hover:text-white"
-            }`}
-          >
-            All
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleCategoryChange(category)}
-              className={`px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
-                activeCategory === category
-                  ? "bg-brand-green text-white rounded-md"
-                  : categoryHasImages(category)
-                  ? "text-gray-300 hover:text-white"
-                  : "text-gray-500 cursor-not-allowed"
-              }`}
-              disabled={!categoryHasImages(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Main Slider */}
       <div
         ref={sliderRef}

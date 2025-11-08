@@ -11,7 +11,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <div className="relative h-12 w-12 overflow-hidden">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/chimeng.png"
                   alt="Chimeng Motorbike Rental Logo"
                   width={48}
                   height={48}
@@ -23,7 +23,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="mt-4 text-gray-400">
-              Quality motorbike rentals in Ungasan, Bali. Yamaha NMax, Honda Vario, Honda Scoopy, and Yamaha Gear scooters with flexible rental periods and free delivery options. Starting from 100k IDR/day.
+              Quality motorbike rentals in Ungasan, Bali. Yamaha NMax, Honda
+              Vario, Honda Scoopy, and Yamaha Gear scooters with flexible rental
+              periods and free delivery options. Starting from 100k IDR/day.
             </p>
             <div className="mt-6 flex space-x-4">
               <Link
@@ -78,8 +80,32 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2 text-gray-400">
               <li className="flex justify-between">
-                <span>Open Daily</span>
-                <span>8am - 6pm</span>
+                <span>Saturday</span>
+                <span>8am - 7pm</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Sunday</span>
+                <span>8am - 7pm</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Monday</span>
+                <span>8am - 7pm</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Tuesday</span>
+                <span>8am - 7pm</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Wednesday</span>
+                <span>8am - 7pm</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Thursday</span>
+                <span>8am - 7pm</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Friday</span>
+                <span>8am - 7pm</span>
               </li>
             </ul>
           </div>

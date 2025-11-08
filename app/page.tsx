@@ -29,9 +29,6 @@ interface GalleryImage {
 }
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const heroRef = useRef<HTMLDivElement>(null);
-  const mousePositionRef = useRef({ x: 0.5, y: 0.5 }); // Add ref to track current position
   const [shuffledImages, setShuffledImages] = useState<GalleryImage[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
@@ -89,56 +86,6 @@ export default function Home() {
 
     return result;
   };
-
-  // Parallax effect for hero section
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-
-      const { clientX, clientY } = e;
-      const { width, height, left, top } =
-        heroRef.current.getBoundingClientRect();
-
-      const x = (clientX - left) / width;
-      const y = (clientY - top) / height;
-
-      mousePositionRef.current = { x, y }; // Update ref
-      setMousePosition({ x, y });
-    };
-
-    const handleScroll = () => {
-      if (!heroRef.current) return;
-
-      // Check if hero section is in viewport
-      const rect = heroRef.current.getBoundingClientRect();
-      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
-
-      if (!isInViewport) return;
-
-      // When scrolling without mouse movement, ensure we still have a good parallax position
-      // Use the ref for current position or default to center position
-      const { x } = mousePositionRef.current;
-
-      // Force re-render with slightly adjusted values to create subtle movement during scroll
-      const scrollY = window.scrollY;
-      // Slightly adjust y position based on scroll to create a subtle movement effect
-      const adjustedY = 0.5 + (scrollY % 100) / 1000;
-
-      setMousePosition({ x, y: adjustedY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("scroll", handleScroll);
-
-    // Initialize position to center for better default appearance
-    mousePositionRef.current = { x: 0.5, y: 0.5 };
-    setMousePosition({ x: 0.5, y: 0.5 });
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   // Initialize shuffled images on client side
   useEffect(() => {
@@ -214,82 +161,163 @@ export default function Home() {
     }
   }, []);
 
-  // Calculate parallax transform values with scale
-  const calculateTransform = (depth = 30, scale = 1) => {
-    const { x, y } = mousePosition;
-    const moveX = (x - 0.5) * depth;
-    const moveY = (y - 0.5) * depth;
-    return `translate3d(${moveX}px, ${moveY}px, 0) scale(${scale})`;
-  };
-
   return (
     <div className="flex min-h-screen flex-col bg-brand-lightgray">
       <Navbar />
 
       {/* Hero Section */}
-      <section
-        ref={heroRef}
-        className="relative h-screen overflow-hidden bg-[#1A1A1A] pt-20 md:pt-0"
-      >
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/row-of-bike-in-garage-h.png"
-            alt="Chimeng Motorbike Rental Fleet"
-            fill
-            className="object-cover brightness-[0.2] origin-center"
-            priority
-            style={{ transform: calculateTransform(20, 1.1) }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-black/60 to-brand-black/90"></div>
-        </div>
+      <section className="relative overflow-hidden bg-white pt-32 pb-20 lg:min-h-screen flex items-center">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div className="text-center lg:text-left order-2 lg:order-1 space-y-8">
+              {/* Main Headline */}
+              <div className="space-y-6">
+                <h1 className="font-sans leading-[1.1]">
+                  <span className="block text-5xl md:text-6xl lg:text-7xl font-bold uppercase text-brand-black tracking-tight mb-3">
+                    Bike Rentals
+                  </span>
+                  <div className="mt-2">
+                    <span className="block text-xs md:text-sm font-medium text-gray-500 uppercase tracking-widest mb-2">
+                      Starting at
+                    </span>
+                    <span className="block text-5xl md:text-6xl lg:text-7xl font-bold text-brand-green tracking-tight">
+                      100k
+                      <span className="text-gray-600 text-4xl md:text-5xl lg:text-6xl">
+                        /
+                      </span>
+                      Day
+                    </span>
+                  </div>
+                </h1>
 
-        <div
-          className="absolute inset-0 z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white"
-          style={{ transform: calculateTransform(10, 1.05) }}
-        >
-          <div className="mb-8 w-48 md:w-64 animate-float">
-            <Image
-              src="/images/logo.png"
-              alt="Chimeng Motorbike Rental Logo"
-              width={300}
-              height={300}
-              className="drop-shadow-lg"
-            />
-          </div>
-          <h1 className="mb-4 font-sans text-5xl font-bold tracking-tight uppercase md:text-6xl lg:text-7xl">
-            <span className="block">CHIMENG</span>
-            <span className="block mt-2 text-brand-green">MOTORBIKE RENTAL</span>
-          </h1>
-          <p className="mb-8 max-w-2xl text-lg md:text-xl text-gray-700">
-            Quality scooter rentals in Ungasan, Bali - Ride with confidence
-          </p>
-          <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-            <Button
-              size="lg"
-              className="bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 pulse-glow"
-            >
-              <Link href="https://wa.me/6282247986694">Rent Now</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-brand-black hover:bg-white/10 hover:text-white uppercase tracking-wider font-medium"
-            >
-              <Link href="#gallery">View Gallery</Link>
-            </Button>
-          </div>
-        </div>
+                {/* Subheading */}
+                <p className="text-lg md:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                  Quality bikes delivered free to your hotel. Daily, weekly, and
+                  monthly rentals available in Ungasan.
+                </p>
+              </div>
 
-        <div className="absolute bottom-12 left-0 right-0 z-10 hidden sm:flex justify-center">
-          <Link
-            href="#about"
-            className="flex flex-col items-center text-white animate-pulse"
-          >
-            <span className="mb-2 text-sm uppercase tracking-widest">
-              Scroll Down
-            </span>
-            <ChevronDown className="h-6 w-6" />
-          </Link>
+              {/* Feature Pills */}
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                <div className="inline-flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 text-brand-green"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-sm font-medium text-gray-700">
+                    Free Delivery
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 text-brand-green"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-sm font-medium text-gray-700">
+                    Well-Maintained
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 text-brand-green"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-sm font-medium text-gray-700">
+                    Surfrack Available
+                  </span>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0 justify-center lg:justify-start pt-2">
+                <Button
+                  size="lg"
+                  className="bg-brand-green hover:bg-brand-green/90 text-white font-semibold text-base px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+                >
+                  <Link href="https://wa.me/6282247986694">
+                    Book Now on WhatsApp
+                  </Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold text-base px-8 py-6 rounded-lg transition-all"
+                >
+                  <Link href="#fleet">View Our Fleet</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div className="relative order-1 lg:order-2 hidden lg:block">
+              <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/row-of-bike-in-garage-h.png"
+                  alt="Chimeng Motorbike Rental Fleet"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                {/* Subtle overlay with brand color accent */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-green/10 to-transparent"></div>
+
+                {/* Floating info card */}
+                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg hidden md:block">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-600 uppercase tracking-wide mb-1">
+                        Open Daily
+                      </p>
+                      <p className="text-lg font-bold text-brand-black">
+                        8am - 7pm
+                      </p>
+                    </div>
+                    <div className="h-10 w-px bg-gray-300"></div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-gray-600 uppercase tracking-wide mb-1">
+                        Location
+                      </p>
+                      <p className="text-lg font-bold text-brand-black">
+                        Uluwatu, Bali
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -right-4 w-32 h-32 bg-brand-green/20 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -bottom-4 -left-4 w-40 h-40 bg-brand-green/10 rounded-full blur-3xl -z-10"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -307,7 +335,8 @@ export default function Home() {
               Pick-up or Delivery
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Visit our shop in Ungasan to pick up your bike, or we can deliver it to you anywhere in the area.
+              Visit our shop in Ungasan to pick up your bike, or we can deliver
+              it to you anywhere in the area.
             </p>
           </div>
 
@@ -316,7 +345,7 @@ export default function Home() {
               name="Shop Pick-up"
               image="/images/chimeng-showing-client-bike-v.png"
               address="Jalan Pura Masuka 33, Ungasan, Bali"
-              hours="8am - 6pm everyday"
+              hours="8am - 7pm everyday"
               phone="+62 822-4798-6694"
               mapUrl="https://maps.google.com/?q=Jalan+Pura+Masuka+33,+Ungasan,+Bali"
               description="Visit our shop in Ungasan to browse our fleet and pick up your bike directly. We'll get you on the road quickly with all the necessary equipment."
@@ -324,13 +353,12 @@ export default function Home() {
 
             <LocationCard
               name="Free Delivery"
-              image="/images/chimeng-with-client-shaka-v.png"
               address="We deliver anywhere in the Uluwatu area"
-              hours="8am - 6pm everyday"
+              hours="8am - 7pm everyday"
               phone="+62 822-4798-6694"
-              isNew={true}
               mapUrl="https://wa.me/6282247986694"
               description="Can't make it to the shop? No problem! We offer free delivery service to your hotel, villa, or accommodation in the Ungasan and Uluwatu area."
+              showMapEmbed={true}
             />
           </div>
         </div>
@@ -348,14 +376,19 @@ export default function Home() {
                 QUALITY RENTALS
               </Badge>
               <h2 className="mb-6 font-sans text-3xl font-bold uppercase tracking-tight md:text-4xl lg:text-5xl">
-                Explore Bali{" "}
-                <span className="text-brand-green">Your Way</span>
+                Explore Bali <span className="text-brand-green">Your Way</span>
               </h2>
               <p className="mb-6 text-lg leading-relaxed text-gray-700">
-                At Chimeng Motorbike Rental, we provide quality scooters to help you explore the beautiful island of Bali with ease and freedom. Whether you&apos;re a local or a visitor, we have the perfect ride for you.
+                At Chimeng Motorbike Rental, we provide quality scooters to help
+                you explore the beautiful island of Bali with ease and freedom.
+                Whether you&apos;re a local or a visitor, we have the perfect
+                ride for you.
               </p>
               <p className="mb-8 text-lg leading-relaxed text-gray-700">
-                Located in Ungasan, we offer well-maintained Yamaha NMax, Honda Vario, Honda Scoopy, and Yamaha Gear scooters with flexible rental periods - daily, weekly, or monthly. Free delivery available to your hotel or villa in the Uluwatu area.
+                Located in Ungasan, we offer well-maintained Yamaha NMax, Honda
+                Vario, and Honda Scoopy scooters with flexible rental periods -
+                daily, weekly, or monthly. Free delivery available to your hotel
+                or villa in the Uluwatu area.
               </p>
               {/* <Button
                 variant="outline"
@@ -397,27 +430,25 @@ export default function Home() {
             <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
               OUR RATES
             </Badge>
-            <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl" id="fleet">
+            <h2
+              className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl"
+              id="fleet"
+            >
               Rental Pricing
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Choose from our fleet of well-maintained scooters. All bikes include helmets and basic insurance. Daily, weekly, and monthly rates available.
+              Choose from our fleet of well-maintained scooters. All bikes
+              include helmets and basic insurance. Daily, weekly, and monthly
+              rates available.
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-3">
             <PricingCard
               title="Honda Scoopy"
               price="100k IDR/day"
               image="/images/red-black-scoopy-h.png"
               description="Perfect for city riding and short trips. Fuel-efficient and easy to handle. Weekly: 600k | Monthly: 1.8M"
-            />
-
-            <PricingCard
-              title="Yamaha Gear"
-              price="100k IDR/day"
-              image="/images/red-black-scoopy-h.png"
-              description="Compact and agile scooter ideal for navigating Bali's streets. Weekly: 600k | Monthly: 1.8M"
             />
 
             <PricingCard
@@ -437,7 +468,9 @@ export default function Home() {
 
           <div className="mt-12 text-center">
             <Button className="bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
-              <Link href="https://wa.me/6282247986694">Rent Now on WhatsApp</Link>
+              <Link href="https://wa.me/6282247986694">
+                Rent Now on WhatsApp
+              </Link>
             </Button>
           </div>
         </div>
@@ -457,7 +490,8 @@ export default function Home() {
               Bike Gallery
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-700">
-              Browse through our collection of quality scooters available for rent. All bikes are well-maintained and ready to ride.
+              Browse through our collection of quality scooters available for
+              rent. All bikes are well-maintained and ready to ride.
             </p>
           </div>
 
@@ -488,7 +522,8 @@ export default function Home() {
               Frequently Asked Questions
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Everything you need to know before renting a motorbike from Chimeng Motorbike Rental.
+              Everything you need to know before renting a motorbike from
+              Chimeng Motorbike Rental.
             </p>
           </div>
 
@@ -506,7 +541,10 @@ export default function Home() {
                   What do I need to rent a motorbike?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  You&apos;ll need a valid driver&apos;s license (international driving permit recommended for foreigners), passport or ID, and a deposit. We provide helmets with every rental. It&apos;s recommended to have experience riding scooters before renting.
+                  You&apos;ll need a valid driver&apos;s license (international
+                  driving permit recommended for foreigners) and passport or ID.
+                  We provide helmets with every rental. It&apos;s recommended to
+                  have experience riding scooters before renting.
                 </AccordionContent>
               </AccordionItem>
 
@@ -518,19 +556,10 @@ export default function Home() {
                   Do you offer delivery service?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  Yes! We offer free delivery service to hotels and villas in the Ungasan and Uluwatu area. Just contact us on WhatsApp with your location, and we&apos;ll bring the bike to you and pick it up when you&apos;re done.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem
-                value="item-3"
-                className="border-b border-brand-black/10"
-              >
-                <AccordionTrigger className="text-left text-lg font-medium hover:text-brand-green">
-                  What&apos;s included in the rental?
-                </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
-                  Every rental includes a helmet (or two for couples), basic insurance, and a full tank of gas to start. The bikes are well-maintained and checked before each rental to ensure your safety and comfort.
+                  Yes! We offer free delivery service to hotels and villas in
+                  the Ungasan and Uluwatu area. Just contact us on WhatsApp with
+                  your location, and we&apos;ll bring the bike to you and pick
+                  it up when you&apos;re done.
                 </AccordionContent>
               </AccordionItem>
 
@@ -542,7 +571,10 @@ export default function Home() {
                   How do I book a motorbike?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  Booking is easy! Just contact us on WhatsApp at +62 822-4798-6694. Let us know which bike you want, rental duration, and when you need it. We&apos;ll confirm availability and arrange pickup or delivery.
+                  Booking is easy! Just contact us on WhatsApp at +62
+                  822-4798-6694. Let us know which bike you want, rental
+                  duration, and when you need it. We&apos;ll confirm
+                  availability and arrange pickup or delivery.
                 </AccordionContent>
               </AccordionItem>
 
@@ -554,7 +586,11 @@ export default function Home() {
                   What are the rental rates?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  Our rates vary by bike model. Yamaha NMax: 150k/day, 950k/week, 3M/month. Honda Vario: 100k/day, 650k/week, 2M/month. Honda Scoopy & Yamaha Gear: 100k/day, 600k/week, 1.8M/month. Contact us for availability. Long-term rentals get the best rates!
+                  Our rates vary by bike model. Yamaha NMax: 150k/day,
+                  950k/week, 3M/month. Honda Vario: 100k/day, 650k/week,
+                  2M/month. Honda Scoopy: 100k/day, 600k/week, 1.8M/month.
+                  Contact us for availability. Long-term rentals get the best
+                  rates!
                 </AccordionContent>
               </AccordionItem>
 
@@ -566,7 +602,10 @@ export default function Home() {
                   What if something goes wrong with the bike?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600">
-                  We inspect all bikes before rental, but if you experience any issues, contact us immediately on WhatsApp. We&apos;ll assist you quickly. Minor damages are covered by our basic insurance, but major damages or theft will require the deposit.
+                  We inspect all bikes before rental, but if you experience any
+                  issues, contact us immediately on WhatsApp. We&apos;ll assist
+                  you quickly. Any damages to the bike are the responsibility of
+                  the guest and must be covered.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -588,7 +627,8 @@ export default function Home() {
               What Our Customers Say
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-700">
-              Read reviews from our satisfied customers who have rented bikes from Chimeng Motorbike Rental.
+              Read reviews from our satisfied customers who have rented bikes
+              from Chimeng Motorbike Rental.
             </p>
           </div>
 
@@ -617,7 +657,9 @@ export default function Home() {
 
           <div className="mt-12 text-center">
             <Button className="bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105">
-              <Link href="https://g.page/r/chimengmotorbikerental">Read More Reviews</Link>
+              <Link href="https://share.google/UYD0PTu65qKPcekbV" target="_blank" rel="noopener noreferrer">
+                Read More Reviews
+              </Link>
             </Button>
           </div>
         </div>
@@ -637,7 +679,8 @@ export default function Home() {
               Ready to Explore Bali?
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Your adventure begins with a simple booking. We're ready to get you on the road with a quality, reliable scooter.
+              Your adventure begins with a simple booking. We're ready to get
+              you on the road with a quality, reliable scooter.
             </p>
           </div>
 
@@ -659,7 +702,8 @@ export default function Home() {
                 </div>
                 <h4 className="font-bold text-lg mb-2">Contact Us</h4>
                 <p className="text-gray-600">
-                  Message us on WhatsApp to check availability and book your bike. Tell us which bike you want and for how long.
+                  Message us on WhatsApp to check availability and book your
+                  bike. Tell us which bike you want and for how long.
                 </p>
               </div>
 
@@ -672,7 +716,9 @@ export default function Home() {
                 </div>
                 <h4 className="font-bold text-lg mb-2">Pick-up or Delivery</h4>
                 <p className="text-gray-600">
-                  Come to our shop in Ungasan to pick up your bike, or we can deliver it to your hotel or villa for free in the Uluwatu area.
+                  Come to our shop in Ungasan to pick up your bike, or we can
+                  deliver it to your hotel or villa for free in the Uluwatu
+                  area.
                 </p>
               </div>
 
@@ -685,148 +731,9 @@ export default function Home() {
                 </div>
                 <h4 className="font-bold text-lg mb-2">Ride & Explore</h4>
                 <p className="text-gray-600">
-                  Hit the road and explore Bali at your own pace! Return the bike when you're done - we make it easy and hassle-free.
+                  Hit the road and explore Bali at your own pace! Return the
+                  bike when you're done - we make it easy and hassle-free.
                 </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-12 md:grid-cols-2">
-            {/* What to Bring */}
-            <div className="bg-white p-8 rounded-xl shadow-md">
-              <h3 className="mb-6 font-sans text-2xl font-bold text-brand-black uppercase">
-                What to Bring to Your Session
-              </h3>
-
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
-                    ✓
-                  </div>
-                  <span className="text-gray-700">
-                    Valid ID (passport or driver&apos;s license)
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
-                    ✓
-                  </div>
-                  <span className="text-gray-700">
-                    Reference images or inspiration for your design
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
-                    ✓
-                  </div>
-                  <span className="text-gray-700">
-                    Comfortable clothes that allow access to the tattoo area
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
-                    ✓
-                  </div>
-                  <span className="text-gray-700">
-                    Water and snacks for longer sessions
-                  </span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green/20 text-brand-green">
-                    ✓
-                  </div>
-                  <span className="text-gray-700">
-                    Payment method (cash, card, or digital payment)
-                  </span>
-                </li>
-              </ul>
-
-              <div className="mt-8 p-4 bg-brand-green/10 rounded-lg">
-                <p className="text-gray-700 italic">
-                  &ldquo;Our artists can help adapt any reference material to
-                  create a unique design that&apos;s perfect for you. Don&apos;t
-                  worry if you&apos;re not 100% sure about your design -
-                  that&apos;s what consultations are for!&rdquo;
-                </p>
-              </div>
-            </div>
-
-            {/* Book Now */}
-            <div className="bg-white p-8 rounded-xl shadow-md flex flex-col">
-              <h3 className="mb-6 font-sans text-2xl font-bold text-brand-black uppercase">
-                Book Your Session Today
-              </h3>
-
-              <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green">
-                  <Phone className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-brand-black">
-                    WhatsApp or Call
-                  </h3>
-                  <p className="text-gray-600">+62 813-3870-2013</p>
-                </div>
-              </div>
-
-              <div className="grid gap-4 grid-cols-2 mb-8">
-                <div className="text-center p-3 border border-gray-200 rounded-lg">
-                  <p className="text-3xl font-bold text-brand-green">2000+</p>
-                  <p className="text-sm text-gray-600">Happy Clients</p>
-                </div>
-                <div className="text-center p-3 border border-gray-200 rounded-lg">
-                  <p className="text-3xl font-bold text-brand-green">5.0</p>
-                  <p className="text-sm text-gray-600">Google Rating</p>
-                </div>
-              </div>
-
-              <div className="flex-1 flex flex-col justify-between">
-                <div className="space-y-4">
-                  <h4 className="font-medium text-brand-black">
-                    Choose Your Studio Location:
-                  </h4>
-
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      id="padang"
-                      name="location"
-                      className="accent-brand-green"
-                      defaultChecked
-                    />
-                    <label
-                      htmlFor="padang"
-                      className="text-gray-700"
-                    >
-                      Padang Padang (New)
-                    </label>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      id="ungasan"
-                      name="location"
-                      className="accent-brand-green"
-                    />
-                    <label
-                      htmlFor="ungasan"
-                      className="text-gray-700"
-                    >
-                      Ungasan
-                    </label>
-                  </div>
-                </div>
-
-                <Button
-                  className="w-full mt-6 bg-brand-green hover:bg-brand-green/90 text-white uppercase tracking-wider font-medium transition-transform hover:scale-105 flex items-center justify-center gap-2 pulse-glow"
-                  size="lg"
-                >
-                  <Phone className="h-5 w-5" />
-                  <Link href="https://wa.me/6281338702013">
-                    Book via WhatsApp
-                  </Link>
-                </Button>
               </div>
             </div>
           </div>
