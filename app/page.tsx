@@ -202,7 +202,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                 <div className="inline-flex items-center gap-2">
                   <svg
-                    className="w-4 h-4 text-brand-green"
+                    className="w-4 h-4 text-brand-yellow"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -220,7 +220,7 @@ export default function Home() {
                 </div>
                 <div className="inline-flex items-center gap-2">
                   <svg
-                    className="w-4 h-4 text-brand-green"
+                    className="w-4 h-4 text-brand-yellow"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -238,7 +238,7 @@ export default function Home() {
                 </div>
                 <div className="inline-flex items-center gap-2">
                   <svg
-                    className="w-4 h-4 text-brand-green"
+                    className="w-4 h-4 text-brand-yellow"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -260,19 +260,21 @@ export default function Home() {
               <div className="flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0 justify-center lg:justify-start pt-2">
                 <Button
                   size="lg"
-                  className="bg-brand-green hover:bg-brand-green/90 text-white font-semibold text-base px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+                  className="bg-brand-green hover:bg-brand-green/90 text-white font-semibold text-base px-8 py-6 rounded-lg shadow-lg hover:shadow-xl hover:shadow-brand-yellow/20 transition-all hover:scale-[1.02]"
                 >
                   <Link href="https://wa.me/6282247986694">
                     Book Now on WhatsApp
                   </Link>
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold text-base px-8 py-6 rounded-lg transition-all"
-                >
-                  <Link href="#fleet">View Our Fleet</Link>
-                </Button>
+                <Link href="#fleet" className="w-full sm:w-auto">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold text-base px-8 py-6 rounded-lg transition-all"
+                  >
+                    View Bikes
+                  </Button>
+                </Link>
               </div>
             </div>
 
@@ -313,9 +315,9 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-32 h-32 bg-brand-green/20 rounded-full blur-3xl -z-10"></div>
-              <div className="absolute -bottom-4 -left-4 w-40 h-40 bg-brand-green/10 rounded-full blur-3xl -z-10"></div>
+              {/* Decorative elements - surf vibe */}
+              <div className="absolute -top-4 -right-4 w-32 h-32 bg-brand-ocean/20 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -bottom-4 -left-4 w-40 h-40 bg-brand-yellow/15 rounded-full blur-3xl -z-10"></div>
             </div>
           </div>
         </div>
@@ -324,16 +326,19 @@ export default function Home() {
       {/* Locations Section */}
       <section
         id="locations"
-        className="py-20 relative overflow-hidden ink-splatter"
+        className="py-20 relative overflow-hidden bg-gradient-to-b from-brand-sand/30 to-white"
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
               RENTAL OPTIONS
             </Badge>
-            <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
-              Pick-up or Delivery
-            </h2>
+            <div className="mb-4 flex justify-center">
+              <h2 className="font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl relative inline-block">
+                Pick-up or Delivery
+                <span className="absolute -bottom-2 left-0 right-0 h-1 bg-brand-yellow"></span>
+              </h2>
+            </div>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
               Visit our shop in Ungasan to pick up your bike, or we can deliver
               it to you anywhere in the area.
@@ -367,12 +372,12 @@ export default function Home() {
       {/* About Section */}
       <section
         id="about"
-        className="bg-white py-20 relative overflow-hidden"
+        className="bg-gradient-to-br from-white to-brand-sand/20 py-20 relative overflow-hidden"
       >
         <div className="container mx-auto">
           <div className="grid gap-12 md:grid-cols-2">
             <div className="flex flex-col justify-center">
-              <Badge className="mb-6 w-fit bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+              <Badge className="mb-6 w-fit bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
                 QUALITY RENTALS
               </Badge>
               <h2 className="mb-6 font-sans text-3xl font-bold uppercase tracking-tight md:text-4xl lg:text-5xl">
@@ -427,7 +432,7 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
               OUR RATES
             </Badge>
             <h2
@@ -456,6 +461,7 @@ export default function Home() {
               price="100k IDR/day"
               image="/images/2-vario-v.png"
               description="Popular and reliable automatic scooter. Great for daily commuting and exploring Bali. Weekly: 650k | Monthly: 2M"
+              popular={true}
             />
 
             <PricingCard
@@ -479,11 +485,11 @@ export default function Home() {
       {/* Gallery Section */}
       <section
         id="gallery"
-        className="bg-gray-50 py-20 relative overflow-hidden"
+        className="bg-gradient-to-br from-brand-ocean/5 via-white to-brand-sand/20 py-20 relative overflow-hidden"
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
               OUR FLEET
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
@@ -511,11 +517,11 @@ export default function Home() {
       {/* FAQ Section */}
       <section
         id="faq"
-        className="bg-brand-lightgray py-20 relative overflow-hidden balinese-pattern"
+        className="bg-brand-sand/25 py-20 relative overflow-hidden"
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
               QUESTIONS
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
@@ -620,7 +626,7 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
               TESTIMONIALS
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold uppercase tracking-tight md:text-4xl lg:text-5xl">
@@ -672,7 +678,7 @@ export default function Home() {
       >
         <div className="container mx-auto">
           <div className="mb-12 text-center">
-            <Badge className="mb-4 bg-brand-green text-white hover:bg-brand-green/90 uppercase tracking-wider">
+            <Badge className="mb-4 bg-brand-yellow text-brand-black hover:bg-brand-yellow/90 uppercase tracking-wider">
               RENT NOW
             </Badge>
             <h2 className="mb-4 font-sans text-3xl font-bold text-brand-black uppercase tracking-tight md:text-4xl lg:text-5xl">
@@ -691,8 +697,8 @@ export default function Home() {
             </h3>
 
             <div className="grid gap-8 md:grid-cols-3">
-              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
-                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl">
+              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px] hover:shadow-lg">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl shadow-md">
                   1
                 </div>
                 <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
@@ -707,8 +713,8 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
-                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl">
+              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px] hover:shadow-lg">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl shadow-md">
                   2
                 </div>
                 <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">
@@ -722,8 +728,8 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px]">
-                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl">
+              <div className="relative p-6 bg-white rounded-xl shadow-md flex flex-col items-center text-center transition-transform hover:translate-y-[-5px] hover:shadow-lg">
+                <div className="absolute -top-5 w-10 h-10 rounded-full bg-brand-green text-white flex items-center justify-center font-bold text-xl shadow-md">
                   3
                 </div>
                 <div className="mt-4 mb-4 w-16 h-16 flex items-center justify-center">

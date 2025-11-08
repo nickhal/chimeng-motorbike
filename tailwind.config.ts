@@ -64,14 +64,16 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom brand colors - Clean neutral catalog
+        // Custom brand colors - Surf/tropical Bali vibe matching logo
         brand: {
-          green: "#546E7A", // Blue-gray slate - primary accent
-          yellow: "#90A4AE", // Light slate
-          red: "#78909C", // Medium slate
-          black: "#37474F", // Dark slate
-          gray: "#78909C",
-          lightgray: "#FAFBFC",
+          green: "#4A7C3E", // Forest green from logo border
+          yellow: "#F4D03F", // Golden yellow from logo
+          red: "#DC3545", // Vibrant red from logo background
+          black: "#1C1C1C", // Deep black for contrast
+          gray: "#6B7280", // Neutral gray
+          lightgray: "#F9FAFB", // Off-white background
+          ocean: "#00A6B5", // Tropical ocean blue accent
+          sand: "#F5E6D3", // Warm sand tone
         },
       },
       borderRadius: {

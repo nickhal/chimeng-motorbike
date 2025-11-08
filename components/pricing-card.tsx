@@ -8,6 +8,7 @@ interface PricingCardProps {
   price: string;
   image: string;
   description: string;
+  popular?: boolean;
 }
 
 export default function PricingCard({
@@ -15,9 +16,17 @@ export default function PricingCard({
   price,
   image,
   description,
+  popular = false,
 }: PricingCardProps) {
   return (
-    <div className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+    <div className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-500 hover:shadow-xl hover:-translate-y-2 relative">
+      {popular && (
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-brand-yellow text-brand-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+            Popular
+          </span>
+        </div>
+      )}
       <div className="relative h-[200px] overflow-hidden">
         <Image
           src={image || "/placeholder.svg"}

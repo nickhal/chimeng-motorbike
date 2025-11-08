@@ -23,7 +23,7 @@ export default function TestimonialCard({
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
-                className="h-4 w-4 fill-white text-white"
+                className="h-4 w-4 fill-[#F4D03F] text-[#F4D03F]"
               />
             ))}
           </div>
@@ -40,7 +40,7 @@ export default function TestimonialCard({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="rounded-xl bg-gray-700 p-6 shadow-lg transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
+        <div className="rounded-xl bg-brand-black p-6 shadow-lg transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
           <CardContent />
         </div>
       </Link>
@@ -48,7 +48,7 @@ export default function TestimonialCard({
   }
 
   return (
-    <div className="rounded-xl bg-gray-700 p-6 shadow-lg transition-transform duration-300 hover:-translate-y-2">
+    <div className="rounded-xl bg-brand-black p-6 shadow-lg transition-transform duration-300 hover:-translate-y-2">
       <CardContent />
     </div>
   );
