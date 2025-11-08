@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, ChevronDown, Users, Paintbrush } from "lucide-react";
+import { Phone, Users, Paintbrush } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,7 +33,7 @@ export default function Home() {
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   // Fisher-Yates shuffle algorithm
-  const shuffleArray = (array: GalleryImage[]) => {
+  const shuffleArray = useCallback((array: GalleryImage[]) => {
     if (!array || array.length === 0) return [];
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -41,10 +41,10 @@ export default function Home() {
       [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
     }
     return newArray;
-  };
+  }, []);
 
   // Balance shuffle - ensures all categories have representation
-  const balancedShuffle = (images: GalleryImage[], categories: string[]) => {
+  const balancedShuffle = useCallback((images: GalleryImage[], categories: string[]) => {
     if (!images || images.length === 0) return [];
 
     // Group images by category
@@ -85,7 +85,7 @@ export default function Home() {
     }
 
     return result;
-  };
+  }, [shuffleArray]);
 
   // Initialize shuffled images on client side
   useEffect(() => {
@@ -159,7 +159,7 @@ export default function Home() {
       setShuffledImages([]);
       setImagesLoaded(true);
     }
-  }, []);
+  }, [balancedShuffle]);
 
   return (
     <div className="flex min-h-screen flex-col bg-brand-lightgray">
@@ -685,7 +685,7 @@ export default function Home() {
               Ready to Explore Bali?
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
-              Your adventure begins with a simple booking. We're ready to get
+              Your adventure begins with a simple booking. We&apos;re ready to get
               you on the road with a quality, reliable scooter.
             </p>
           </div>
@@ -738,7 +738,7 @@ export default function Home() {
                 <h4 className="font-bold text-lg mb-2">Ride & Explore</h4>
                 <p className="text-gray-600">
                   Hit the road and explore Bali at your own pace! Return the
-                  bike when you're done - we make it easy and hassle-free.
+                  bike when you&apos;re done - we make it easy and hassle-free.
                 </p>
               </div>
             </div>

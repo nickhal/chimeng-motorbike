@@ -13,14 +13,12 @@ interface GalleryImage {
 
 interface GallerySliderProps {
   images: GalleryImage[];
-  categories: string[];
+  categories?: string[];
 }
 
 export default function GallerySlider({
   images,
-  categories,
 }: GallerySliderProps) {
-  const [activeCategory, setActiveCategory] = useState("all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState<GalleryImage | null>(null);
@@ -36,16 +34,7 @@ export default function GallerySlider({
   // Min swipe distance (in px)
   const minSwipeDistance = 50;
 
-  const filteredImages =
-    activeCategory === "all"
-      ? images
-      : images.filter((img) => img.category === activeCategory);
-
-  // Check if a category has no images
-  const categoryHasImages = (category: string) => {
-    if (category === "all") return images.length > 0;
-    return images.filter((img) => img.category === category).length > 0;
-  };
+  const filteredImages = images;
 
   const handlePrev = useCallback(() => {
     if (filteredImages.length === 0) return;
@@ -121,11 +110,6 @@ export default function GallerySlider({
     }
   };
 
-  // Reset active index when category changes
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [activeCategory]);
-
   // Check if images are loaded
   useEffect(() => {
     setIsLoading(false);
@@ -133,18 +117,6 @@ export default function GallerySlider({
       setActiveIndex(0);
     }
   }, [images]);
-
-  // Verify category has images before setting it
-  const handleCategoryChange = (category: string) => {
-    if (categoryHasImages(category)) {
-      setActiveCategory(category);
-      setActiveIndex(0);
-    } else {
-      console.warn(`Category ${category} has no images`);
-      // Fallback to "all" if the category has no images
-      setActiveCategory("all");
-    }
-  };
 
   // Handle keyboard navigation and click outside to close modal
   useEffect(() => {

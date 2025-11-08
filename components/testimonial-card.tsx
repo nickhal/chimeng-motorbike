@@ -3,14 +3,13 @@ import Link from "next/link";
 
 interface TestimonialCardProps {
   name: string;
-  rating: number;
+  rating?: number;
   review: string;
   reviewLink?: string;
 }
 
 export default function TestimonialCard({
   name,
-  rating,
   review,
   reviewLink,
 }: TestimonialCardProps) {
