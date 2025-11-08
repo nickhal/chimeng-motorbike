@@ -3,7 +3,7 @@ name: 🚀 Deploy to Hostinger
 on:
   push:
     branches:
-      - main # Triggers on push to main branch
+      - main # Triggers on push to main branch - test deploy
 
 jobs:
   build-and-deploy:
